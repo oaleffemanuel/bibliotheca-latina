@@ -571,7 +571,7 @@ def p_sobre():
 
 # ───────────────────────── Aprenda Latim · Elementa Linguae Latinae ─────────────────────────
 SO_PUBLICADAS = '--so-publicadas' in sys.argv
-STATUS = {'planejada': None, 'rascunho': 'Rascunho', 'revisada': 'Em revisão final', 'publicada': None}
+STATUS = ('planejada', 'rascunho', 'revisada', 'publicada')   # situação editorial interna; não é exibida no site
 TIPOS_DIREITO = {'original': 'Conteúdo original deste projeto', 'dominio_publico': 'Conteúdo original com trechos de obras em domínio público', 'adaptacao_autorizada': 'Adaptação autorizada de material de terceiros'}
 PERMISSOES = json.load(open(os.path.join(ROOT, 'conteudo', 'permissoes.json'), encoding='utf-8'))['fontes']
 
@@ -662,7 +662,6 @@ def reportar_html(l):
 <button type="submit" class="btn small">{"Abrir formulário de envio" if FEEDBACK['url'] else "Enviar por e-mail"}</button>
 <div class="relatorio" hidden><p class="legend">Se o programa de e-mail não abriu (por exemplo, se você usa e-mail só no navegador), copie o texto abaixo e envie para <a href="mailto:{e(CONTATO_EMAIL)}">{e(CONTATO_EMAIL)}</a>.</p><textarea readonly rows="7"></textarea><button type="button" class="btn small copiar">Copiar relatório</button></div>
 </form></details>"""
-def badge(st): return f'<span class="tag status">{STATUS[st]}</span>' if STATUS.get(st) else ''
 
 def p_aprenda():
     partes = ''; topicos = {}
