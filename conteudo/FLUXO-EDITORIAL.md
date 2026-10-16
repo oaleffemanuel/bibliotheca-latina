@@ -146,19 +146,12 @@ Distinguir **variante legítima** (duas formas atestadas ou duas notações acei
 - `tempo` estima uma sessão de estudo: 45–90 min.
 - Capítulos acima de 90 min são divididos em duas sessões no próprio texto, com uma indicação ("Se preferir, pare aqui"), em vez de mudar o currículo.
 
-## 8. Edição beta e canal de correções (2026-10-16)
-- **Aviso:** o aviso de beta aparece no índice do livro e no topo de cada capítulo. O texto está em `AVISO_BETA`, em `ferramentas/construir.py`. A seção "Sobre esta edição beta" do índice explica:
-  - a finalidade do livro;
-  - a verificação interna assistida por IA;
-  - a diferença entre revisão interna e revisão acadêmica humana;
-  - a autoria independente;
-  - o agradecimento a Rafael Falcão, sem endosso.
-- **Duas indicações separadas em cada capítulo:**
-  - a situação editorial (`status`: Rascunho, Em revisão final ou Publicado);
-  - a revisão acadêmica, "pendente" enquanto `creditos.revisao_gramatical` estiver vazio.
-  Publicar um capítulo não o torna revisado.
-- **"Reportar problema":**
-  - Fica no topo do capítulo e numa marca ⚑ ao lado de cada título de seção.
-  - O formulário recolhe capítulo, seção, tipo de problema, descrição e sugestão opcional. Não pede nome nem e-mail.
-  - Sem servidor próprio: com `FEEDBACK['url']` vazio, o leitor gera o relatório e o copia para o canal do beta. Com a URL de um formulário externo (ex.: Google Forms) e os ids `entry.NNN` em `FEEDBACK['campos']`, o botão abre o formulário já preenchido.
-- **Triagem:** cada relato vira um item no estilo de `AUDITORIA-GERAL.md` (categoria, severidade, estado) antes de qualquer correção.
+## 8. Apresentação pública e canal de correções (atualizado em 2026-10-16)
+- **O que o site mostra:** o *Elementa* aparece como curso completo de 54 capítulos, sem selos de situação editorial nem avisos de "beta". Fica uma única nota editorial factual na página Sobre (`sobre.html#nota-editorial`). Ela diz que o livro é independente, foi escrito com base nas gramáticas de referência e verificado com auxílio de IA, que não tem revisão por pares nem certificação, e que Rafael Falcão não participou nem endossa.
+- **Registros internos, que não mudam com isso:**
+  - `status` de cada capítulo (rascunho, revisada, publicada);
+  - `creditos.revisao_gramatical`, vazio enquanto não houver revisão humana;
+  - `AUDITORIA-GERAL.md`, os relatórios em `revisoes/` e `permissoes.json`.
+  As pendências abertas continuam abertas. O site só deixa de exibir esses estados. Se um capítulo receber revisão humana, o nome do revisor aparece nos créditos.
+- **"Reportar problema":** fica no topo de cada capítulo e numa marca ⚑ ao lado de cada título de seção. O botão abre o programa de e-mail do leitor com a mensagem pronta para `CONTATO_EMAIL` (`ferramentas/construir.py`): capítulo, seção, tipo, descrição e sugestão. Nada é enviado sem confirmação, e o texto também fica disponível para copiar. Se um dia houver formulário externo, preencha `FEEDBACK['url']` e os `entry.NNN`.
+- **Triagem:** cada relato vira um item no estilo de `AUDITORIA-GERAL.md` antes de qualquer correção.

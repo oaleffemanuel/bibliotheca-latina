@@ -159,10 +159,10 @@
       window.open(d.url + (d.url.includes('?') ? '&' : '?') + p.toString(), '_blank', 'noopener');
       return;
     }
-    const txt = `Elementa Linguae Latinae (beta) · relatório de problema\n${vals.capitulo}\nSeção: ${vals.secao}\nTipo: ${vals.categoria}\nProblema: ${vals.descricao}\nSugestão: ${vals.sugestao || '—'}\nPágina: ${location.href.split('#')[0]}`;
+    const txt = `Elementa Linguae Latinae · relatório de problema\n${vals.capitulo}\nSeção: ${vals.secao}\nTipo: ${vals.categoria}\nProblema: ${vals.descricao}\nSugestão: ${vals.sugestao || '—'}\nPágina: ${location.href.split('#')[0]}`;
     out.hidden = false; out.querySelector('textarea').value = txt;
     if (d.email) {
-      const assunto = `[Elementa beta] ${vals.capitulo.replace(/ \(.*\)$/, '')} · ${vals.categoria}`;
+      const assunto = `[Elementa] ${vals.capitulo.replace(/ \(.*\)$/, '')} · ${vals.categoria}`;
       location.href = `mailto:${d.email}?subject=${encodeURIComponent(assunto)}&body=${encodeURIComponent(txt)}`;
     }
   });

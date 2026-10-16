@@ -435,7 +435,7 @@ def p_guia():
 
 <h2>O livro Aprenda Latim</h2>
 <ul>
-<li><b>Quatro partes</b> (Fundamenta, Grammatica, Lectio, Auctores) e capítulos numerados. Os capítulos ainda não escritos aparecem como "em preparação".</li>
+<li><b>Quatro partes</b> (Fundamenta, Grammatica, Lectio, Auctores) e capítulos numerados. São 54 capítulos, todos disponíveis.</li>
 <li><b>Cada capítulo</b> tem objetivos, explicação, exemplos em latim, tabelas, diagramas, exercícios com resposta escondida (clique em "Ver resposta") e leituras do catálogo.</li>
 <li><b>Marcar capítulo como concluído</b> salva a marcação neste navegador; o índice do livro mostra o avanço.</li>
 </ul>
@@ -563,6 +563,8 @@ def p_sobre():
 <li><b>Código (HTML, CSS, JS e scripts):</b> MIT.</li>
 <li><b>Os recursos listados:</b> seguem a licença de cada fonte, indicada em cada cartão.</li>
 </ul>
+<h2 id="nota-editorial">Nota editorial sobre o livro</h2>
+<p>O <i>Elementa Linguae Latinae</i> foi desenvolvido de forma independente por este projeto. As explicações, os exemplos e os exercícios foram escritos para ele com base nas gramáticas de referência (Bennett, Allen e Greenough, Kennedy, Ravizza), no dicionário de Lewis e Short e em edições em domínio público dos textos antigos. A redação e a verificação editorial foram feitas com auxílio de ferramentas de inteligência artificial, com conferência das formas, regras, citações e edições contra essas fontes. O livro não passou por revisão por pares nem tem certificação acadêmica; correções são bem-vindas pelo botão "Reportar problema" de cada capítulo. O professor Rafael Falcão, a quem o autor agradece no <a href="aprenda/#creditos">índice do livro</a>, não participou da obra, não a revisou e não a endossa.</p>
 {apoie_html()}
 </div>'''
     return page('sobre.html', 'Sobre o projeto, fontes e direitos autorais', 'Sobre a Bibliotheca Latina: as fontes usadas, a política de direitos autorais, o método de classificação e as licenças do projeto.', body)
@@ -620,9 +622,8 @@ SLUG2LICAO = {l['slug']: l for l in LICOES}
 
 def licao_href(l): return f"{l['slug']}.html"
 
-# Edição beta. A situação editorial (status) diz em que ponto está a redação;
-# a revisão acadêmica humana é outra coisa e só existe quando creditos.revisao_gramatical está preenchido.
-AVISO_BETA = 'Versão beta — material em revisão editorial. Este curso ainda não passou por revisão acadêmica humana completa.'
+# A situação editorial (status) e a revisão acadêmica (creditos.revisao_gramatical) são registros internos;
+# o site não exibe selos de rascunho/revisão (decisão de 2026-10-16; ver FLUXO-EDITORIAL §8).
 DATA_AUDITORIA = '2026-10-15'
 # Formulário externo de correções (sem backend próprio). Com url vazia, o leitor gera o relatório no navegador e o copia.
 # Google Forms: url = 'https://docs.google.com/forms/d/e/<ID>/viewform'; em campos, o 'entry.NNN' de cada pergunta
@@ -642,19 +643,6 @@ def apoie_html():
 <p>Se ele foi útil para você, a melhor ajuda é usá-lo, indicá-lo a outros estudantes e avisar dos erros que encontrar (há um botão "Reportar problema" em cada capítulo). {"Quem quiser, pode também contribuir com uma doação voluntária; nada no site depende dela." if PIX else "Contribuições voluntárias poderão ser recebidas no futuro; por ora, um contato já ajuda."}</p>
 {pix}<p>Contato: <a class="btn small ghost" href="mailto:{CONTATO_EMAIL}">{CONTATO_EMAIL}</a></p>
 </section>"""
-
-def aviso_beta(compacto=False):
-    if compacto:
-        return f'<p class="aviso-beta" role="note"><b>Versão beta</b> — material em revisão editorial. Este curso ainda não passou por revisão acadêmica humana completa. <a href="./#sobre-esta-edicao">Saiba mais</a></p>'
-    return f'<div class="aviso-beta grande" role="note"><p><b>{e(AVISO_BETA.split(" — ")[0])}</b> — {e(AVISO_BETA.split(" — ")[1])}</p><p>Os capítulos foram conferidos internamente, com auxílio de ferramentas de IA, contra gramáticas de referência; isso não substitui a leitura de um latinista. Se encontrar um erro, use "Reportar problema" no capítulo. <a href="#sobre-esta-edicao">Sobre esta edição</a></p></div>'
-
-def situacao_html(l):
-    pub = {'rascunho': 'Rascunho', 'revisada': 'Em revisão final', 'publicada': 'Publicado'}.get(l['status'], '')
-    rev = l['creditos'].get('revisao_gramatical')
-    tags = f'<span class="tag status" title="Situação editorial do texto">{pub}</span>' if pub else ''
-    tags += (f'<span class="tag revisado">Revisão acadêmica: {e(rev["nome"])}</span>' if rev
-             else '<span class="tag revisao-pendente" title="Nenhum capítulo passou ainda por revisão acadêmica humana">Revisão acadêmica pendente</span>')
-    return tags
 
 def reportar_html(l):
     secs = [(f's{i}', re.sub(r'<[^>]+>', '', t)) for i, (t, h) in enumerate(l['secoes'], 1)]
@@ -684,7 +672,7 @@ def p_aprenda():
             info = (f'<span class="lat">{e(l.get("titulo_latim", ""))}</span>' if l.get('titulo_latim') else '') + \
                    f'<span class="meta-cap">{e(l.get("nivel", ""))}' + (f' · requer {", ".join(str(x) for x in l["pre"])}' if l.get('pre') else '') + '</span>'
             if l.get('slug'):
-                li += (f'<li data-licao="{e(l["slug"])}" class="nv-{norm(l.get("nivel", "")).replace("á", "a")}"><span class="n">{l["numero"]}</span><span class="cap"><a href="{licao_href(l)}">{e(l["titulo"])}</a>{badge(l.get("status"))}{info}</span>'
+                li += (f'<li data-licao="{e(l["slug"])}" class="nv-{norm(l.get("nivel", "")).replace("á", "a")}"><span class="n">{l["numero"]}</span><span class="cap"><a href="{licao_href(l)}">{e(l["titulo"])}</a>{info}</span>'
                        f'<span class="feita" hidden>✓ concluída</span></li>')
                 for t in SLUG2LICAO[l['slug']].get('topicos', []): topicos.setdefault(t, []).append(l)
             else:
@@ -697,12 +685,11 @@ def p_aprenda():
 <p class="kicker">Aprenda Latim · livro digital gratuito</p>
 <h1>{e(LIVRO.TITULO)}</h1>
 <p class="sub">{e(LIVRO.SUBTITULO)}</p>
-<p class="lead">Um curso em português, do zero à leitura dos autores, em quatro partes e {N_LICOES_TOTAL} capítulos. Cada capítulo traz objetivos, explicações, exemplos em latim, tabelas, diagramas, exercícios com resposta e leituras do catálogo. {"Todos os capítulos estão disponíveis nesta edição beta." if len(LICOES) == N_LICOES_TOTAL else f"{len(LICOES)} capítulos já estão disponíveis; os demais estão em preparação."}</p>
-{aviso_beta()}
-<div class="cta"><a class="btn accent" href="{licao_href(primeira)}">Começar pelo capítulo 1</a><a class="btn ghost" href="#como-estudar">Como estudar com o livro</a><a class="btn ghost" href="#topicos">Índice de tópicos</a><a class="btn ghost" href="#sobre-esta-edicao">Sobre esta edição beta</a></div>
+<p class="lead">Um curso em português, do zero à leitura dos autores, em quatro partes e {N_LICOES_TOTAL} capítulos. Cada capítulo traz objetivos, explicações, exemplos em latim, tabelas, diagramas, exercícios com resposta e leituras do catálogo. {"Os " + str(N_LICOES_TOTAL) + " capítulos estão disponíveis, de graça, com progressão gramatical completa, das primeiras frases à leitura guiada de César, Virgílio, Cícero, Lívio, da Vulgata, de Agostinho e de Tomás de Aquino." if len(LICOES) == N_LICOES_TOTAL else f"{len(LICOES)} capítulos já estão disponíveis; os demais estão em preparação."}</p>
+<div class="cta"><a class="btn accent" href="{licao_href(primeira)}">Começar pelo capítulo 1</a><a class="btn ghost" href="#como-estudar">Como estudar com o livro</a><a class="btn ghost" href="#topicos">Índice de tópicos</a></div>
 <div class="progresso-livro" data-total="{len(LICOES)}"><span class="txt">O progresso fica salvo neste navegador.</span><div class="barra"><div></div></div></div>
 </div></div>
-<div class="wrap"><p class="legend niveis-legenda"><b>Níveis:</b> <span class="nv nv-essencial">essencial</span> o que todo iniciante precisa · <span class="nv nv-intermediario">intermediário</span> o necessário para ler prosa autêntica com apoio · <span class="nv nv-avancado">avançado</span> sintaxe do período, poesia e escrita. "Requer" indica os capítulos pré-requisitos. O selo <span class="tag status">Rascunho</span> indica a situação editorial do texto; nenhum capítulo, rascunho ou não, passou ainda por revisão acadêmica humana.</p><div class="partes">{partes}</div>
+<div class="wrap"><p class="legend niveis-legenda"><b>Níveis:</b> <span class="nv nv-essencial">essencial</span> o que todo iniciante precisa · <span class="nv nv-intermediario">intermediário</span> o necessário para ler prosa autêntica com apoio · <span class="nv nv-avancado">avançado</span> sintaxe do período, poesia e escrita. "Requer" indica os capítulos pré-requisitos.</p><div class="partes">{partes}</div>
 <h2 id="como-estudar">Como estudar com o livro</h2>
 <div class="two">
 <div class="box"><b>Uma lição por vez, em voz alta.</b><br>Leia a explicação, repita os exemplos em latim em voz alta e só então faça os exercícios. Confira cada resposta antes de passar à seguinte: a explicação da resposta é parte da lição.</div>
@@ -711,16 +698,8 @@ def p_aprenda():
 <div class="box"><b>Volte quando precisar.</b><br>As tabelas das lições são para consultar sempre que uma forma aparecer na leitura. Ninguém decora as declinações de uma vez: elas se fixam vendo-as nos textos.</div>
 </div>
 <h2 id="topicos">Índice de tópicos gramaticais</h2>
-<p>Onde cada assunto é tratado, nos capítulos já disponíveis.</p>
+<p>Onde cada assunto é tratado no livro.</p>
 <ul class="toc topicos-idx">{idx}</ul>
-<h2 id="sobre-esta-edicao">Sobre esta edição beta</h2>
-<div class="sobre-beta">
-<p><b>Para que serve o livro.</b> O <i>Elementa Linguae Latinae</i> quer levar quem fala português do zero à leitura dos autores latinos — clássicos, cristãos e medievais — com explicações em português, exemplos originais, exercícios com resposta explicada e textos autênticos de edições em domínio público. É gratuito e de licença aberta (CC BY 4.0).</p>
-<p><b>O que significa "beta".</b> Os {N_LICOES_TOTAL} capítulos estão escritos, mas o livro ainda está em revisão editorial. Pode haver erros de latim, de tradução ou de gabarito. Por isso esta edição circula entre leitores convidados, e cada capítulo tem um botão "Reportar problema".</p>
-<p><b>Como o texto foi verificado até agora.</b> A redação e a conferência foram feitas com auxílio de ferramentas de inteligência artificial, sob coordenação editorial humana. Cada capítulo foi conferido contra gramáticas de referência (Bennett, Allen e Greenough, Kennedy, Ravizza), contra o dicionário de Lewis e Short e contra as edições dos textos antigos, primeiro pelo redator e depois numa auditoria geral independente ({DATA_AUDITORIA}). Essas verificações são <b>internas</b>: reduzem erros, mas não equivalem à leitura crítica de um especialista.</p>
-<p><b>Revisão interna × revisão acadêmica humana.</b> A situação editorial de cada capítulo (rascunho, em revisão final, publicado) diz em que ponto está o texto. A revisão acadêmica é outra etapa: só será indicada quando um latinista, pessoa diferente do autor, tiver revisado o capítulo, e o nome dele aparecerá nos créditos. Até lá, todos os capítulos mostram "Revisão acadêmica pendente".</p>
-<p><b>Autoria independente.</b> O livro é obra original deste projeto: explicações, exemplos e exercícios foram escritos para ele, a partir das gramáticas de referência e dos textos antigos. Não reproduz nem adapta cursos ou livros de terceiros. O agradecimento ao professor Rafael Falcão (abaixo) registra uma dívida pessoal do autor: o professor não participou do livro, não o revisou e não o endossa.</p>
-</div>
 <h2 id="creditos">Créditos e fontes</h2>
 <p>O <i>Elementa Linguae Latinae</i> é um texto original deste projeto, escrito em português, sob licença CC BY 4.0. Explicações, exemplos e exercícios foram redigidos para este livro; os fatos gramaticais são os da tradição, conferidos nas gramáticas de referência do <a href="../recursos.html">catálogo</a>. Cada capítulo traz, ao final, seus créditos: autor, fontes consultadas, educadores externos cujas aulas públicas são indicadas como complemento, adaptações autorizadas (quando houver) e leituras. A indicação de uma aula externa é uma referência independente e não implica endosso, colaboração nem autoria por parte do educador citado.</p>
 <p><b>Agradecimento.</b> O autor deste livro agradece ao professor Rafael Falcão, cujo curso gratuito de latim despertou e alimentou seu interesse pela língua. O <i>Elementa</i> é uma obra independente: não reproduz nem adapta o conteúdo daquele curso, e esta menção não implica endosso, colaboração ou coautoria do professor.</p>
@@ -734,7 +713,7 @@ def creditos_html(l):
     aut = e(c['autor'])
     if c.get('colaboradores'): aut += ' · colaboração: ' + e(', '.join(c['colaboradores']))
     rev = c.get('revisao_gramatical')
-    aut += f' · revisão acadêmica: {e(rev["nome"])} ({e(rev["data"])})' if rev else f' · revisão acadêmica humana: pendente (verificação interna assistida por IA em {DATA_AUDITORIA})'
+    aut += f' · revisão acadêmica: {e(rev["nome"])} ({e(rev["data"])})' if rev else ''
     blocos.append(('Autoria', f'{aut}. {e(TIPOS_DIREITO[d["tipo"]])}; licença {e(d.get("licenca", "CC BY 4.0"))}.'))
     refs = l.get('referencias', [])
     if refs:
@@ -784,8 +763,7 @@ def p_licao(l, k):
     if nxt: nav += f'<a class="prox" href="{licao_href(nxt)}">Capítulo {nxt["numero"]} →<b>{e(nxt["titulo"])}</b></a>'
     else: nav += f'<a class="prox" href="./">Voltar ao índice do livro →<b>{"Você chegou ao fim do livro" if len(LICOES) == N_LICOES_TOTAL else "Os próximos capítulos estão em preparação"}</b></a>'
     body = f"""<div class="wrap licao p{l["parte"]}">
-<p class="licao-top"><a href="./">{e(LIVRO.TITULO)}</a><span class="sep">·</span><span>Parte {ROMAN[l["parte"]]} · {e(l["parte_nome"])}</span><span class="sep">·</span><span>Capítulo {l["numero"]}</span><span class="sep">·</span><span>{e(l["tempo"])}</span>{situacao_html(l)}<a class="link-reportar" href="#reportar">Reportar problema</a></p>
-{aviso_beta(compacto=True)}
+<p class="licao-top"><a href="./">{e(LIVRO.TITULO)}</a><span class="sep">·</span><span>Parte {ROMAN[l["parte"]]} · {e(l["parte_nome"])}</span><span class="sep">·</span><span>Capítulo {l["numero"]}</span><span class="sep">·</span><span>{e(l["tempo"])}</span><a class="link-reportar" href="#reportar">Reportar problema</a></p>
 <p class="titulo-latim" lang="la">{e(l.get("titulo_latim") or "")}</p>
 <h1>{e(l["titulo"])}</h1>
 <p class="resumo">{e(l["resumo"])}</p>
