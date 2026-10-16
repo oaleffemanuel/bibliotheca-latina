@@ -1,0 +1,26 @@
+{
+ "_descricao": "Registro de permissões de material de terceiros usado (ou previsto) no livro Elementa Linguae Latinae. Uma entrada por fonte. Nada entra no livro como adaptação sem status 'concedida' e documento arquivado.",
+ "_status_possiveis": [
+  "nao_solicitada",
+  "solicitada",
+  "concedida",
+  "negada",
+  "nao_necessaria"
+ ],
+ "fontes": [
+  {
+   "id": "rafael-falcao-curso-de-latim",
+   "titular": "Rafael Falcão",
+   "material": "Curso de Latim (aulas em vídeo, públicas e gratuitas)",
+   "uso_previsto": "1) Referência externa em 'Aulas complementares' (só link para a aula pública, com atribuição): não exige permissão. 2) Adaptação de explicações, exemplos ou exercícios: exige permissão expressa.",
+   "status_referencia": "nao_necessaria",
+   "status_adaptacao": "nao_solicitada",
+   "contato": null,
+   "data_pedido": null,
+   "data_resposta": null,
+   "documento": null,
+   "condicoes": null,
+   "observacoes": "Enquanto a adaptação não for autorizada, nenhuma lição pode conter direitos.tipo = 'adaptacao_autorizada' com esta fonte. Links verificados a aulas públicas podem entrar em aulas_complementares quando houver URL oficial conferida. Agradecimento pessoal na página do livro (aprenda/index.html), redigido sem implicar endosso, colaboração ou coautoria (2026-10-14): não é referência nem adaptação, não exige permissão."
+  }
+ ]
+}

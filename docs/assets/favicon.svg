@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Bibliotheca Latina">
+  <rect width="64" height="64" rx="6" fill="#f4eee2"/>
+  <rect x="5" y="5" width="54" height="54" rx="3" fill="none" stroke="#8a2b1d" stroke-width="1.5"/>
+  <rect x="9" y="9" width="46" height="46" rx="2" fill="none" stroke="#a98434" stroke-width="1"/>
+  <text x="32" y="44" text-anchor="middle" font-family="Georgia, 'Times New Roman', serif" font-size="30" font-weight="700" letter-spacing="-1" fill="#1f1b16">B<tspan fill="#8a2b1d">L</tspan></text>
+</svg>

@@ -1,0 +1,18 @@
+# sistema e Python
+.DS_Store
+__pycache__/
+*.pyc
+# credenciais e configurações locais (nunca versionar)
+.env
+.env.*
+*.pem
+*.key
+.claude/
+# material privado de pesquisa fica FORA deste repositório
+*-private/
+*.mp4
+*.mkv
+*.mov
+*.wav
+*.mp3
+ChatExport*/
