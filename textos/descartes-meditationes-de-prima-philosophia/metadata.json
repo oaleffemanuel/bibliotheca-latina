@@ -1,0 +1,54 @@
+{
+  "id": "descartes-meditationes-de-prima-philosophia",
+  "titulo_latino": "Meditationes de prima philosophia",
+  "forma": "prosa",
+  "edicoes": [
+    {
+      "editor": "Artur Buchenau",
+      "edicao": "Descartes, Meditationes de prima philosophia (Bibliotheca Philosophorum, vol. I)",
+      "local": "Leipzig",
+      "editora": "Felix Meiner",
+      "ano": "1913"
+    }
+  ],
+  "transcricao": {
+    "nome": "Project Gutenberg, eBook #23306",
+    "arquivos": [
+      "https://www.gutenberg.org/ebooks/23306"
+    ],
+    "versao": "eBook #23306",
+    "commit": "",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "Domínio público",
+    "url": "https://creativecommons.org/publicdomain/mark/1.0/deed.pt-br",
+    "declaracao": "O Project Gutenberg declara que os eBooks em domínio público nos EUA podem ser redistribuídos “with or without the Project Gutenberg trademark” e que não é preciso permissão para citá-lo como fonte (gutenberg.org/policy/permission.html). No Brasil, a obra e a edição estão em domínio público (ver auditoria)."
+  },
+  "atribuicao": "Texto latino: Descartes, Meditationes de prima philosophia (Bibliotheca Philosophorum, vol. I), Artur Buchenau (Leipzig: Felix Meiner, 1913). Transcrição: Project Gutenberg, eBook #23306 (https://www.gutenberg.org/ebooks/23306). Formatação (página, PDF, EPUB): Bibliotheca Latina. Texto em domínio público.",
+  "auditoria": {
+    "1_autor_e_obra": "Obra de René Descartes (†1650), em domínio público.",
+    "2_edicao_fonte": "Descartes, Meditationes de prima philosophia (Bibliotheca Philosophorum, vol. I), Artur Buchenau (Leipzig: Felix Meiner, 1913), conforme a própria fonte digital.",
+    "3_data_e_editor": "1913; Artur Buchenau (†1946; fonte: https://www.wikidata.org/wiki/Q18616420).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (falecido em 1946; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "Transcrição do Project Gutenberg de obra em domínio público; o projeto permite redistribuir sem a marca e citar a fonte sem permissão.",
+    "6_permissao_de_reproduzir": "Sim: obra em domínio público no Brasil e nos EUA; o Project Gutenberg não impõe restrição ao uso não comercial sem a marca.",
+    "7_permissao_de_derivados": "Sim: obra em domínio público no Brasil e nos EUA; o Project Gutenberg não impõe restrição ao uso não comercial sem a marca.",
+    "8_atribuicao_exigida": "Nenhuma exigida; citamos a edição impressa e o eBook do Project Gutenberg por transparência."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "prefácio em alemão de Buchenau",
+    "notas e variantes de Buchenau, em alemão",
+    "notas do transcritor"
+  ],
+  "normalizacao": [
+    "Texto do eBook #23306 do Project Gutenberg, sem o cabeçalho e a licença do projeto.",
+    "Números de página da 1ª edição na margem ([n]) e barras de quebra de página (|) retirados; palavras partidas pela barra reunidas.",
+    "Chamadas das notas de Buchenau ((n)) retiradas.",
+    "O título “Epistola dedicatoria” foi acrescentado para a navegação; a edição abre a carta direto com o endereçamento (SAPIENTISSIMIS...).",
+    "Parágrafos numerados pela Bibliotheca Latina (seção.parágrafo) para navegação."
+  ],
+  "verificado_em": "2026-10-18"
+}

@@ -1,0 +1,52 @@
+{
+  "id": "stevenson-insula-thesauraria",
+  "titulo_latino": "Insula Thesauraria",
+  "forma": "prosa",
+  "edicoes": [
+    {
+      "editor": "Arcadius Avellanus (tradutor)",
+      "edicao": "Insula Thesauraria (Mount Hope Classics, vol. V)",
+      "local": "Nova York",
+      "editora": "E. Parmalee Prentice",
+      "ano": "1922"
+    }
+  ],
+  "transcricao": {
+    "nome": "Project Gutenberg, eBook #68935",
+    "arquivos": [
+      "https://www.gutenberg.org/ebooks/68935"
+    ],
+    "versao": "eBook #68935",
+    "commit": "",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "Domínio público",
+    "url": "https://creativecommons.org/publicdomain/mark/1.0/deed.pt-br",
+    "declaracao": "O Project Gutenberg declara que os eBooks em domínio público nos EUA podem ser redistribuídos “with or without the Project Gutenberg trademark” e que não é preciso permissão para citá-lo como fonte (gutenberg.org/policy/permission.html). No Brasil, a obra e a edição estão em domínio público (ver auditoria)."
+  },
+  "atribuicao": "Texto latino: Insula Thesauraria (Mount Hope Classics, vol. V), Arcadius Avellanus (tradutor) (Nova York: E. Parmalee Prentice, 1922). Transcrição: Project Gutenberg, eBook #68935 (https://www.gutenberg.org/ebooks/68935). Formatação (página, PDF, EPUB): Bibliotheca Latina. Texto em domínio público.",
+  "auditoria": {
+    "1_autor_e_obra": "Tradução latina (1922) do romance de R. L. Stevenson (†1894) por Arcadius Avellanus (†1935); obra original e tradução em domínio público no Brasil e nos EUA.",
+    "2_edicao_fonte": "Insula Thesauraria (Mount Hope Classics, vol. V), Arcadius Avellanus (tradutor) (Nova York: E. Parmalee Prentice, 1922), conforme a própria fonte digital.",
+    "3_data_e_editor": "1922; Arcadius Avellanus (tradutor) (†1935; fonte: https://www.wikidata.org/wiki/Q4785199).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (falecido em 1935; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "Transcrição do Project Gutenberg de obra em domínio público; o projeto permite redistribuir sem a marca e citar a fonte sem permissão.",
+    "6_permissao_de_reproduzir": "Sim: obra em domínio público no Brasil e nos EUA; o Project Gutenberg não impõe restrição ao uso não comercial sem a marca.",
+    "7_permissao_de_derivados": "Sim: obra em domínio público no Brasil e nos EUA; o Project Gutenberg não impõe restrição ao uso não comercial sem a marca.",
+    "8_atribuicao_exigida": "Nenhuma exigida; citamos a edição impressa e o eBook do Project Gutenberg por transparência."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "prefácio da série Mount Hope Classics",
+    "notas de rodapé da edição (glosas dos neologismos)",
+    "lista de correções do transcritor (as correções já estão aplicadas no texto)"
+  ],
+  "normalizacao": [
+    "Texto do eBook #68935 do Project Gutenberg, sem o cabeçalho e a licença do projeto; inclui as correções tipográficas do transcritor listadas no fim do eBook.",
+    "Parágrafos numerados pela Bibliotheca Latina (capítulo.parágrafo) para navegação.",
+    "Chamadas de nota [n] retiradas; marcas de itálico (_..._) retiradas."
+  ],
+  "verificado_em": "2026-10-18"
+}

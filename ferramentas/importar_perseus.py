@@ -473,7 +473,7 @@ def converter(id_, cfg):
         k = out.index(l)
         out[k:k + 1] = [f'{ref}\t{t[:m.start()]}', f'{prox}\t{t[m.end():]}']
         refs.add(prox); correcoes.append(f'capítulo {prox} separado do {ref} (divisão ausente no arquivo TEI)')
-    txt = '\n'.join(out).strip() + '\n'
+    txt = '\n'.join(out).strip('\n') + '\n'
     # aspas: fecha só onde a citação não continua no verso seguinte (<q rend="merge">)
     txt = re.sub(r'\x02(\n[^\t\n]*\t)\x03', r'\1', txt)
     txt = txt.replace('\x01', '“').replace('\x03', '“').replace('\x02', '”')

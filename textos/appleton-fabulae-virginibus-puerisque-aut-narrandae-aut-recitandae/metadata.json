@@ -1,0 +1,52 @@
+{
+  "id": "appleton-fabulae-virginibus-puerisque-aut-narrandae-aut-recitandae",
+  "titulo_latino": "Fabulae virginibus puerisque aut narrandae aut recitandae",
+  "forma": "prosa",
+  "edicoes": [
+    {
+      "editor": "R. B. Appleton (autor)",
+      "edicao": "Fabulae virginibus puerisque aut narrandae aut recitandae",
+      "local": "Londres",
+      "editora": "G. Bell and Sons",
+      "ano": "1914"
+    }
+  ],
+  "transcricao": {
+    "nome": "Project Gutenberg, eBook #57615",
+    "arquivos": [
+      "https://www.gutenberg.org/ebooks/57615"
+    ],
+    "versao": "eBook #57615",
+    "commit": "",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "Domínio público",
+    "url": "https://creativecommons.org/publicdomain/mark/1.0/deed.pt-br",
+    "declaracao": "O Project Gutenberg declara que os eBooks em domínio público nos EUA podem ser redistribuídos “with or without the Project Gutenberg trademark” e que não é preciso permissão para citá-lo como fonte (gutenberg.org/policy/permission.html). No Brasil, a obra e a edição estão em domínio público (ver auditoria)."
+  },
+  "atribuicao": "Texto latino: Fabulae virginibus puerisque aut narrandae aut recitandae, R. B. Appleton (autor) (Londres: G. Bell and Sons, 1914). Transcrição: Project Gutenberg, eBook #57615 (https://www.gutenberg.org/ebooks/57615). Formatação (página, PDF, EPUB): Bibliotheca Latina. Texto em domínio público.",
+  "auditoria": {
+    "1_autor_e_obra": "Obra moderna em latim de R. B. Appleton (†1938), em domínio público no Brasil desde 2009 e nos EUA (publicada em 1914).",
+    "2_edicao_fonte": "Fabulae virginibus puerisque aut narrandae aut recitandae, R. B. Appleton (autor) (Londres: G. Bell and Sons, 1914), conforme a própria fonte digital.",
+    "3_data_e_editor": "1914; R. B. Appleton (autor) (†1938; fonte: https://www.wikidata.org/wiki/Q106695381).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (falecido em 1938; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "Transcrição do Project Gutenberg de obra em domínio público; o projeto permite redistribuir sem a marca e citar a fonte sem permissão.",
+    "6_permissao_de_reproduzir": "Sim: obra em domínio público no Brasil e nos EUA; o Project Gutenberg não impõe restrição ao uso não comercial sem a marca.",
+    "7_permissao_de_derivados": "Sim: obra em domínio público no Brasil e nos EUA; o Project Gutenberg não impõe restrição ao uso não comercial sem a marca.",
+    "8_atribuicao_exigida": "Nenhuma exigida; citamos a edição impressa e o eBook do Project Gutenberg por transparência."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "prefácio em inglês do autor",
+    "legendas das ilustrações e quadros com glosas em inglês",
+    "índice de palavras (Index verbōrum)"
+  ],
+  "normalizacao": [
+    "Texto do eBook #57615 do Project Gutenberg, sem o cabeçalho e a licença do projeto; quantidades vocálicas (mácrons) como na edição de 1914, inclusive as que o transcritor aponta como divergentes do Oxford Latin Dictionary.",
+    "Parágrafos numerados pela Bibliotheca Latina (fábula.parágrafo) para navegação; não é a numeração da edição.",
+    "Marcas de itálico do texto puro (_..._) retiradas."
+  ],
+  "verificado_em": "2026-10-18"
+}

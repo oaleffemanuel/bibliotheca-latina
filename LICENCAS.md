@@ -59,7 +59,11 @@ Segundo lote (2026-10-18): mais 46 obras do mesmo repositório e commit (56 no t
 
 Excluídas por direitos ou por fonte incerta, mesmo estando no repositório da Perseus: edições de editores falecidos depois de 1955 (Apuleio, *Apologia* e *Florida*, ed. Helm †1966; Cícero, *Tusculanae*, ed. Pohlenz †1962; Sêneca, *De clementia*, ed. Basore †1959, e *Epistulae*, ed. Gummere †1969; *Historia Augusta*, ed. Magie †1960; Agostinho, cartas, ed. Baxter †1973), Estácio (data de morte do editor Mozley não confirmada), Propércio (transcrição de origem sem licença, The Latin Library) e as cartas de Plínio e as *Historiae* de Tácito (arquivos sem edição identificada).
 
-Conferência de integridade: o importador compara as palavras do corpo de cada TEI (menos o que as regras omitem) com as do `texto.txt`. Nas 56 obras não há palavra perdida nem acrescentada; as diferenças restantes são uniões corretas de palavras partidas por quebra de página ou por marcação (ex.: *memi|nisti*, *uter|que*), as 31 passagens em grego convertidas de Beta Code para letras gregas e as correções documentadas em cada obra (13 casos de letra duplicada em Gélio; duas saudações de carta em Cícero).
+Terceiro lote (2026-10-18): cinco obras de outras fontes, importadas por `ferramentas/importar_fontes.py` numa versão fixa: do Project Gutenberg, R. B. Appleton, *Fabulae* (Londres: Bell, 1914; Appleton †1938), *Insula Thesauraria*, tradução latina de A. Avellanus (Nova York: Prentice, 1922; †1935), e Descartes, *Meditationes*, ed. A. Buchenau (Leipzig: Meiner, 1913; †1946); do Wikisource latino (CC BY-SA 4.0, revisão fixada), Lhomond, *Epitome historiae sacrae* (Filadélfia: Butler, 1856, ed. Ironside e Joy) e o *Dies irae* da antologia de C. C. Nott (1902; †1916). O Project Gutenberg declara que seus eBooks em domínio público podem ser redistribuídos com ou sem a marca e citados como fonte sem permissão (gutenberg.org/policy/permission.html); o domínio público no Brasil foi conferido pela data de morte de autor, tradutor e editor. Prefácios, notas e glosas modernos (em inglês ou alemão) não são reproduzidos.
+
+Ficaram só como link, por decisão desta auditoria: as edições do Project Gutenberg com mácrons acrescentados por um voluntário em 2023–2024 (Hessus, *Colloquia*; *Robinson Crusoeus*; *Rebilius Cruso*), por serem uma camada editorial recente; a *Prophetia Ionae* do Gutenberg (sem edição de origem identificada); e as páginas do Wikisource sem edição identificada (*Historia Apollonii*, *Regula Benedicti*, *De imitatione Christi*, *Te Deum*, *Pange lingua*, *Vita Karoli Magni*, *Carmina Burana*). A Vulgata Clementina do Wikisource vem do Clementine Vulgate Project, cuja licença não foi verificada; o *Stabat Mater* segue o Missal Romano de 1962; ambos ficam como link.
+
+Conferência de integridade: o importador compara as palavras do corpo de cada TEI (menos o que as regras omitem) com as do `texto.txt`. Nas 61 obras não há palavra perdida nem acrescentada; as diferenças restantes são uniões corretas de palavras partidas por quebra de página ou por marcação (ex.: *memi|nisti*, *uter|que*), as 31 passagens em grego convertidas de Beta Code para letras gregas e as correções documentadas em cada obra (13 casos de letra duplicada em Gélio; duas saudações de carta em Cícero; em Lhomond, números de capítulo lidos errado na transcrição, corrigidos pela sequência, e dois restos de predefinição quebrada).
 
 ## Licenças do próprio projeto
 
@@ -75,6 +79,7 @@ Titulares de direitos podem abrir uma issue no repositório ou escrever ao mante
 
 ## Histórico de decisões
 
+- 2026-10-18 — *Ler aqui* chega a 61 obras (Perseus, Project Gutenberg e Wikisource); 39 obras novas no catálogo (145 recursos).
 - 2026-10-18 — *Ler aqui*: primeiras dez obras hospedadas (Perseus, CC BY-SA 4.0), com PDF e EPUB, após auditoria de oito pontos por obra. O princípio 5 deixa de ser "nenhum texto hospedado".
 - 2026-10-13 — Seção Aprenda Latim: livro original *Elementa Linguae Latinae* sob CC BY 4.0, três lições iniciais.
 - 2026-10-13 — Versão inicial. Nenhum texto ou áudio hospedado; 100% do catálogo em modo link. Materiais LLPSI (Hackett) incluídos como referência comercial.

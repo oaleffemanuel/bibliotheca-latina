@@ -1,0 +1,53 @@
+{
+  "id": "lhomond-epitome-historiae-sacrae",
+  "titulo_latino": "Epitome historiae sacrae",
+  "forma": "prosa",
+  "edicoes": [
+    {
+      "editor": "George Ironside e Thomas S. Joy",
+      "edicao": "Epitome historiae sacrae (Lhomond)",
+      "local": "Filadélfia",
+      "editora": "E. H. Butler & Co.",
+      "ano": "1856"
+    }
+  ],
+  "transcricao": {
+    "nome": "Wikisource latino (Vicifons), página “Epitome historiæ sacræ”",
+    "arquivos": [
+      "https://la.wikisource.org/w/index.php?oldid=227999"
+    ],
+    "versao": "revisão 227999 (2025-02-13)",
+    "commit": "",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br",
+    "declaracao": "Wikisource: texto disponível sob a licença Creative Commons Atribuição-CompartilhaIgual (rodapé de cada página); a obra e a edição estão em domínio público."
+  },
+  "atribuicao": "Texto latino: Epitome historiae sacrae (Lhomond), ed. George Ironside e Thomas S. Joy (Filadélfia: E. H. Butler & Co., 1856). Transcrição: colaboradores do Wikisource latino (https://la.wikisource.org/w/index.php?oldid=227999; histórico na própria página), CC BY-SA 4.0. Formatação (página, PDF, EPUB): Bibliotheca Latina, sob a mesma licença.",
+  "auditoria": {
+    "1_autor_e_obra": "Obra de Charles-François Lhomond (†1794), em domínio público.",
+    "2_edicao_fonte": "Epitome historiae sacrae (Lhomond), George Ironside e Thomas S. Joy (Filadélfia: E. H. Butler & Co., 1856), conforme a própria fonte digital.",
+    "3_data_e_editor": "1856; George Ironside e Thomas S. Joy (data de morte não localizada; fonte: sem registro no Wikidata; editores de livro publicado em 1856, portanto necessariamente falecidos muito antes de 1956).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (sem registro no Wikidata; editores de livro publicado em 1856, portanto necessariamente falecidos muito antes de 1956; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "CC BY-SA 4.0 (Wikisource).",
+    "6_permissao_de_reproduzir": "Sim: CC BY-SA 4.0 permite copiar e redistribuir.",
+    "7_permissao_de_derivados": "Sim: CC BY-SA 4.0 permite adaptar (PDF, EPUB), com atribuição e mesma licença.",
+    "8_atribuicao_exigida": "Créditos aos colaboradores do Wikisource (link da revisão e do histórico), à edição-fonte e à licença; derivados sob CC BY-SA 4.0."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "sumários dos capítulos em inglês, do editor de 1856 (fica só o número do capítulo)",
+    "página de rosto, advertência em inglês e vocabulário da edição de 1856",
+    "elementos de navegação do Wikisource"
+  ],
+  "normalizacao": [
+    "Texto da página do Wikisource latino transcrita e revisada a partir do fac-símile da edição de 1856 (Internet Archive), na revisão indicada.",
+    "Parágrafos numerados pela Bibliotheca Latina (capítulo.parágrafo) para navegação.",
+    "Resto de predefinição de hifenização quebrada na fonte corrigido: “{{hws|de|delapsus)) delapsus” → “delapsus”.",
+    "Números de capítulo lidos errado na transcrição corrigidos pela sequência da edição (só quando o número esperado não aparece em outro lugar): 84→34, 85→35, 75→73, 98→93, 185→135, 180→160."
+  ],
+  "verificado_em": "2026-10-18"
+}

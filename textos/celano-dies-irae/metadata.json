@@ -1,0 +1,48 @@
+{
+  "id": "celano-dies-irae",
+  "titulo_latino": "Dies irae",
+  "forma": "verso",
+  "edicoes": [
+    {
+      "editor": "Charles Cooper Nott",
+      "edicao": "The Seven Great Hymns of the Mediaeval Church (ed. revista)",
+      "local": "Nova York",
+      "editora": "Anson D. F. Randolph",
+      "ano": "1902"
+    }
+  ],
+  "transcricao": {
+    "nome": "Wikisource latino (Vicifons), página “The seven great hymns of the mediaeval church/Dies Iræ/Tommaso”",
+    "arquivos": [
+      "https://la.wikisource.org/w/index.php?oldid=187756"
+    ],
+    "versao": "revisão 187756 (2022-09-06)",
+    "commit": "",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br",
+    "declaracao": "Wikisource: texto disponível sob a licença Creative Commons Atribuição-CompartilhaIgual (rodapé de cada página); a obra e a edição estão em domínio público."
+  },
+  "atribuicao": "Texto latino: The Seven Great Hymns of the Mediaeval Church (ed. revista), ed. Charles Cooper Nott (Nova York: Anson D. F. Randolph, 1902). Transcrição: colaboradores do Wikisource latino (https://la.wikisource.org/w/index.php?oldid=187756; histórico na própria página), CC BY-SA 4.0. Formatação (página, PDF, EPUB): Bibliotheca Latina, sob a mesma licença.",
+  "auditoria": {
+    "1_autor_e_obra": "Sequência medieval atribuída a Tomás de Celano (séc. XIII), em domínio público.",
+    "2_edicao_fonte": "The Seven Great Hymns of the Mediaeval Church (ed. revista), Charles Cooper Nott (Nova York: Anson D. F. Randolph, 1902), conforme a própria fonte digital.",
+    "3_data_e_editor": "1902; Charles Cooper Nott (†1916; fonte: https://www.wikidata.org/wiki/Q5076009).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (falecido em 1916; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "CC BY-SA 4.0 (Wikisource).",
+    "6_permissao_de_reproduzir": "Sim: CC BY-SA 4.0 permite copiar e redistribuir.",
+    "7_permissao_de_derivados": "Sim: CC BY-SA 4.0 permite adaptar (PDF, EPUB), com atribuição e mesma licença.",
+    "8_atribuicao_exigida": "Créditos aos colaboradores do Wikisource (link da revisão e do histórico), à edição-fonte e à licença; derivados sob CC BY-SA 4.0."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "tradução inglesa e comentário da antologia"
+  ],
+  "normalizacao": [
+    "Texto da página do Wikisource latino, na revisão indicada; versos numerados pela Bibliotheca Latina."
+  ],
+  "verificado_em": "2026-10-18"
+}

@@ -392,8 +392,8 @@ h2 .rep-secao:hover, h2 .rep-secao:focus { opacity: 1; color: var(--rubric); }
 .texto-latino .par .ref { font-family: var(--ui); font-size: .66em; font-weight: 600; color: var(--rubric); margin-right: .3em; vertical-align: .12em; }
 .texto-latino .sec { font-family: var(--ui); font-size: .6em; color: var(--ink-3); line-height: 0; padding: 0 .12em; }
 .texto-latino .versos { margin: 0 0 1.1em; }
-.texto-latino .l { display: block; position: relative; padding-left: 2.8em; }
-.texto-latino .l .n { position: absolute; left: 0; width: 3.6em; text-align: right; font-family: var(--ui); font-size: .62em; color: var(--ink-3); top: .55em; line-height: 1; }
+.texto-latino .l { display: block; position: relative; padding-left: 3.6em; text-indent: -.8em; }   /* recuo pendente: a continuação de um verso longo fica recuada */
+.texto-latino .l .n { position: absolute; left: 0; width: 3.6em; text-indent: 0; text-align: right; font-family: var(--ui); font-size: .62em; color: var(--ink-3); top: .55em; line-height: 1; }
 .texto-latino .fala { font-variant: small-caps; letter-spacing: .04em; color: var(--rubric); margin: 1.1em 0 .15em; }
 .texto-latino .par, .texto-latino .l, .texto-latino h2, .texto-latino h3, .fonte-direitos { scroll-margin-top: 80px; }
 .texto-latino :target { background: var(--paper-2); box-shadow: -6px 0 0 var(--gold); }
@@ -406,7 +406,7 @@ h2 .rep-secao:hover, h2 .rep-secao:focus { opacity: 1; color: var(--rubric); }
 .continuar-lista { font-family: var(--ui); padding-left: 1.2rem; }
 @media (max-width: 600px) {
   .texto-latino { font-size: calc(1.04rem * var(--leitor-fs)); }
-  .texto-latino .l { padding-left: 2.3em; } .texto-latino .l .n { width: 3em; }
+  .texto-latino .l { padding-left: 3.1em; } .texto-latino .l .n { width: 3em; }
   .sumario ol, .lista-partes { columns: 1; }
   .progresso-txt { margin-left: 0; width: 100%; }
 }

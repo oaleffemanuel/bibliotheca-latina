@@ -5,6 +5,9 @@ import hashlib, html, json, os, re, uuid, zipfile
 from datetime import datetime, timezone
 
 e = lambda s: html.escape(str(s), quote=True)
+ROTULOS = {'1_autor_e_obra': 'Autor e obra', '2_edicao_fonte': 'Edição-fonte', '3_data_e_editor': 'Data e editor', '4_direitos_da_edicao': 'Direitos da edição',
+           '5_licenca_da_transcricao': 'Licença da transcrição', '6_permissao_de_reproduzir': 'Permissão para reproduzir', '7_permissao_de_derivados': 'Permissão para gerar PDF e EPUB',
+           '8_atribuicao_exigida': 'Atribuição exigida'}
 AUDITORIA = ['1_autor_e_obra', '2_edicao_fonte', '3_data_e_editor', '4_direitos_da_edicao', '5_licenca_da_transcricao',
              '6_permissao_de_reproduzir', '7_permissao_de_derivados', '8_atribuicao_exigida']
 DIVIDIR_ACIMA = 25000
@@ -33,8 +36,9 @@ def carregar(root, catalogo):
         if m.get('forma') not in ('prosa', 'verso'): errs.append(f'{id_}: forma inválida')
         eds = m.get('edicoes') or []
         m['ed_curta'] = '; '.join(f'{x["editor"]} ({x["ano"]})' for x in eds)
-        m['ed_longa'] = '; '.join(f'<i>{e(x["edicao"])}</i>, ed. {e(x["editor"])} ({e(x["local"])}: {e(x["editora"])}, {e(x["ano"])})' + (f' [{e(x["partes"])}]' if x.get('partes') else '') for x in eds)
-        m['ed_texto'] = '; '.join(f'{x["edicao"]}, ed. {x["editor"]} ({x["local"]}: {x["editora"]}, {x["ano"]})' + (f' [{x["partes"]}]' if x.get('partes') else '') for x in eds)
+        ed_pref = lambda x: '' if re.search(r'\((autor|tradutor)', x['editor']) else 'ed. '
+        m['ed_longa'] = '; '.join(f'<i>{e(x["edicao"])}</i>, {ed_pref(x)}{e(x["editor"])} ({e(x["local"])}: {e(x["editora"])}, {e(x["ano"])})' + (f' [{e(x["partes"])}]' if x.get('partes') else '') for x in eds)
+        m['ed_texto'] = '; '.join(f'{x["edicao"]}, {ed_pref(x)}{x["editor"]} ({x["local"]}: {x["editora"]}, {x["ano"]})' + (f' [{x["partes"]}]' if x.get('partes') else '') for x in eds)
         m['arquivos'] = (m.get('transcricao') or {}).get('arquivos') or []
         if not m['arquivos']: errs.append(f'{id_}: transcricao.arquivos vazio')
         m['blocos'] = parse(txt)
@@ -127,11 +131,11 @@ def fonte_html(m, w):
     arq_html = (f'<a href="{e(arqs[0])}" target="_blank" rel="noopener">{e(tr["nome"])}</a>' if len(arqs) == 1 else
                 f'{e(tr["nome"])}: ' + ', '.join(f'<a href="{e(a)}" target="_blank" rel="noopener">{e(a.rsplit("/", 1)[1].split(".perseus")[0])}</a>' for a in arqs))
     norm = ''.join(f'<li>{e(x)}</li>' for x in m['normalizacao'])
-    aud = ''.join(f'<li><b>{e(k.split("_", 1)[1].replace("_", " ").capitalize())}:</b> {e(m["auditoria"][k])}</li>' for k in AUDITORIA)
+    aud = ''.join(f'<li><b>{ROTULOS[k]}:</b> {e(m["auditoria"][k])}</li>' for k in AUDITORIA)
     return f'''<section class="fonte-direitos" id="fonte"><h2>Fonte, edição e direitos</h2>
 <dl class="ficha">
 <div><dt>Edição impressa</dt><dd>{m["ed_longa"]}</dd></div>
-<div><dt>Transcrição digital</dt><dd>{arq_html} (versão {e(tr["commit"][:7])}, consultada em {e(tr["acessado_em"])})</dd></div>
+<div><dt>Transcrição digital</dt><dd>{arq_html} (versão {e(tr.get("versao") or tr["commit"][:7])}, consultada em {e(tr["acessado_em"])})</dd></div>
 <div><dt>Licença</dt><dd><a href="{e(li["url"])}" target="_blank" rel="license noopener">{e(li["nome"])}</a>. {e(li["declaracao"])}</dd></div>
 <div><dt>No catálogo</dt><dd><a href="{e(w["source_url"])}" target="_blank" rel="noopener">{e(w["source_name"])} ↗</a></dd></div>
 </dl>
