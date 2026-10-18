@@ -8,6 +8,14 @@
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !nav.classList.contains('closed')) { set(false); btn.focus(); } });
 })();
 
+// A linha do portal (.eco) rola com a página; só a faixa da marca e do menu fica presa no topo.
+(function () {
+  const eco = document.querySelector('.site-header .eco');
+  if (!eco) return;
+  const set = () => document.documentElement.style.setProperty('--eco', eco.offsetHeight + 'px');
+  set(); window.addEventListener('resize', set);
+})();
+
 // Bibliotheca Latina — filtros do catálogo e progresso de leitura (salvo só no navegador do leitor).
 (function () {
   const KEY = 'bibliotheca-latina:v1';
@@ -74,8 +82,16 @@
   };
   function apply(push) {
     const shown = cards.filter(visible).sort(sorters[ordem.value] || sorters.sugerida);
-    cards.forEach(c => { c.hidden = true; });
-    shown.forEach(c => { c.hidden = false; grid.appendChild(c); });
+    // Só mexe no que mudou. Esconder todos os cards e reinseri-los encolhia a página por um instante, e o
+    // navegador levava a rolagem para o topo (ex.: ao marcar "Lido" no fim do catálogo).
+    const on = new Set(shown);
+    cards.forEach(c => { const h = !on.has(c); if (c.hidden !== h) c.hidden = h; });
+    const atual = Array.from(grid.children).filter(c => !c.hidden);
+    if (atual.some((c, i) => c !== shown[i])) {
+      const y = window.scrollY, frag = document.createDocumentFragment();
+      shown.forEach(c => frag.appendChild(c)); grid.appendChild(frag);
+      if (!push) window.scrollTo({ top: y, behavior: 'instant' });
+    }
     count.textContent = shown.length === 1 ? '1 recurso' : shown.length + ' recursos';
     empty.hidden = shown.length > 0;
     if (push) {
@@ -88,9 +104,27 @@
       if (q.value.trim()) p.set('q', q.value.trim());
       history.replaceState(null, '', (p.toString() ? '?' + p : location.pathname));
     }
+    setMore(!more.classList.contains('closed'));
     return shown;
   }
   window.applyFilters = apply;
+
+  // "Filtros": a busca fica sempre visível; etapas, tipos e menus podem ser recolhidos (recolhidos de início em telas estreitas)
+  const fBtn = $('filtros-botao'), more = $('filtros-mais');
+  const extras = () => Object.values(chipGroups).reduce((n, s) => n + s.size, 0) + [periodo, genero, dificuldade, formato, fonte, lista].filter(el => el.value).length + (audio.checked ? 1 : 0) + (gratis.checked ? 1 : 0);
+  function setMore(open) {
+    more.classList.toggle('closed', !open); fBtn.setAttribute('aria-expanded', String(open));
+    const n = extras(); fBtn.textContent = (open ? 'Ocultar filtros' : 'Filtros') + (n ? ' (' + n + ')' : '');
+  }
+  fBtn.hidden = false;
+  fBtn.addEventListener('click', () => setMore(more.classList.contains('closed')));
+
+  // atalho discreto de volta à busca, só depois que o painel de filtros saiu da tela
+  const back = document.querySelector('.voltar-busca'), panel = $('filtros');
+  if (back && 'IntersectionObserver' in window) {
+    new IntersectionObserver(([en]) => { back.hidden = en.isIntersecting || en.boundingClientRect.top > 0; }).observe(panel);
+    back.addEventListener('click', ev => { ev.preventDefault(); panel.scrollIntoView({ block: 'start', behavior: 'instant' }); q.focus({ preventScroll: true }); });
+  }
 
   // estado inicial a partir da URL (links compartilháveis, ex.: catalogo.html?etapa=1&audio=1)
   const p = new URLSearchParams(location.search);
@@ -103,6 +137,7 @@
   if (p.get('audio')) audio.checked = true;
   if (p.get('gratis')) gratis.checked = true;
   if (p.get('q')) q.value = p.get('q');
+  more.classList.toggle('closed', window.matchMedia('(max-width: 700px)').matches && extras() === 0);
   apply(false);
 
   $('limpar').addEventListener('click', () => {

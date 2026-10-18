@@ -280,12 +280,14 @@ def p_catalogo():
     chips_t = ''.join(f'<button type="button" class="chip-btn" data-group="tipo" data-value="{k}" aria-pressed="false">{v}</button>' for k, v in TIPO.items() if any(w.get('original_or_adapted') == k for w in W))
     body = f'''<div class="wrap"><h1>Catálogo</h1>
 <p>{N} recursos em ordem sugerida de leitura. Combine os filtros à vontade; o endereço da página guarda a busca para você compartilhar. Dificuldade, pré-requisitos e tempo de leitura são estimativas editoriais (<a href="sobre.html#metodo">como classificamos</a>).</p></div>
-<div class="filters"><div class="wrap">
-<div class="row">
+<div class="filters" id="filtros"><div class="wrap">
+<div class="row busca">
 <label class="sr" for="q">Buscar</label>
 <input id="q" type="search" placeholder="Buscar título ou autor (ex.: Caesar, Vulgata, Ørberg, Aquino)" autocomplete="off">
 <select id="ordem" aria-label="Ordenar"><option value="sugerida">Ordem sugerida</option><option value="facil">Mais fáceis primeiro</option><option value="dificil">Mais difíceis primeiro</option><option value="titulo">Título (A–Z)</option><option value="autor">Autor (A–Z)</option></select>
+<button type="button" class="btn small ghost filtros-botao" id="filtros-botao" aria-expanded="true" aria-controls="filtros-mais" hidden>Filtros</button>
 </div>
+<div id="filtros-mais">
 <div class="row"><span class="lbl">Etapa</span>{chips_g}</div>
 <div class="row"><span class="lbl">Tipo</span>{chips_c}{chips_t}</div>
 <div class="row"><span class="lbl">Filtros</span>
@@ -298,11 +300,13 @@ def p_catalogo():
 <label class="inline"><input id="f-audio" type="checkbox"> Com áudio</label>
 <label class="inline"><input id="f-gratis" type="checkbox"> Só gratuitos</label>
 </div>
+</div>
 </div></div>
 <div class="wrap">
 <div class="toolbar"><span id="count" aria-live="polite">{N} recursos</span><div class="acts"><button type="button" class="btn small ghost" id="sorteio">Sortear uma leitura</button><button type="button" class="btn small ghost" id="limpar">Limpar filtros</button></div></div>
 <div class="grid" id="grid">{"".join(card(w) for w in W)}</div>
 <p id="empty" hidden>Nenhum recurso com esses filtros. Tente ampliar a busca.</p>
+<p class="voltar-busca-wrap"><a class="voltar-busca" href="#filtros" hidden>↑ Voltar à busca</a></p>
 <p class="legend" style="margin-top:1.5rem">Todos os links abrem a página oficial de cada fonte. Os recursos marcados "Comercial" são referências a livros à venda; o link leva à editora.</p>
 </div>'''
     return page('catalogo.html', 'Catálogo de leituras em latim',
