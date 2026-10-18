@@ -209,7 +209,7 @@ def card(w, compact=False, base=''):
         acts.append(f'<a class="btn small accent" href="{base}leituras/{e(w["id"])}.html">Ler aqui</a>')
         if 'pdf' in dl: acts.append(f'<a class="btn small ghost" href="{base}{dl["pdf"]}" download>{ICON_DL} Baixar PDF</a>')
         if 'epub' in dl: acts.append(f'<a class="btn small ghost" href="{base}{dl["epub"]}" download>{ICON_DL} Baixar EPUB</a>')
-        acts.append(f'<a class="btn small ghost" href="{e(main_link(w))}" target="_blank" rel="noopener">Ler na fonte ↗</a>')
+        acts.append(f'<a class="btn small ghost" href="{e(main_link(w))}" target="_blank" rel="noopener">{"Ler na fonte" if w.get("online_reading_url") else "Página na fonte"} ↗</a>')
     else:
         acts += acoes_externas(w)
     acts += acoes_extras(w)
@@ -232,7 +232,9 @@ def card(w, compact=False, base=''):
             f'data-fonte="{e(w["source_name"])}" data-interno="{int(interno)}" data-audio="{int(bool(w.get("audio_available")))}" data-gratis="{int(bool(w.get("free", True)))}" '
             f'data-t="{e(w["title"])}" data-a="{e(w["author"] or "")}" data-q="{e(q)}">'
             f'<div class="top">{"".join(tags)}</div><h3>{e(w["title"])}</h3><p class="autor">{e(autor_line(w))}</p>'
-            f'<p class="desc">{e(w["description_pt_br"])}</p><p class="meta">{e(meta)}</p>{more if not compact else ""}<div class="acts">{"".join(acts)}</div></article>')
+            f'<p class="desc">{e(w["description_pt_br"])}</p><p class="meta">{e(meta)}</p>'
+            + (f'<p class="meta aqui">Ler aqui: texto latino da edição de {e(TEXTOS[w["id"]]["ed_curta"])}</p>' if interno else '') +
+            f'{more if not compact else ""}<div class="acts">{"".join(acts)}</div></article>')
 
 def gradus_cards(link=True):
     out = []
@@ -839,7 +841,7 @@ def _cab_leitura(w, m, base, nivel_h='h1'):
     dl = dl_textos(w['id']); g = w['reading_stage']
     acoes = [f'<a class="btn small ghost" href="{base}{dl["pdf"]}" download>{ICON_DL} Baixar PDF</a>' if 'pdf' in dl else '',
              f'<a class="btn small ghost" href="{base}{dl["epub"]}" download>{ICON_DL} Baixar EPUB</a>' if 'epub' in dl else '',
-             f'<a class="btn small ghost" href="{e(main_link(w))}" target="_blank" rel="noopener">Ler na fonte ↗</a>']
+             f'<a class="btn small ghost" href="{e(main_link(w))}" target="_blank" rel="noopener">{"Ler na fonte" if w.get("online_reading_url") else "Página na fonte"} ↗</a>']
     return (f'<nav class="migalhas" aria-label="Você está em"><a href="{base}catalogo.html#{e(w["id"])}">← Catálogo</a> · '
             f'<a href="{base}percurso.html#etapa-{g}">Percurso: etapa {ROMAN[g]}</a> · <a href="{base}leituras/">Ler aqui</a></nav>'
             f'<header class="leitura-cab c{g}"><p class="kicker">Ler aqui · Etapa {ROMAN[g]} · {e(GRADUS[g]["nome"])}</p>'
@@ -854,7 +856,7 @@ def _sumario(toc, prefixo=''):
 def p_leitura(id_):
     w, m = find(id_), TEXTOS[id_]
     base = '../'; ps = m['partes']
-    desc = f'{m["titulo_latino"]}, de {w.get("author") or "autor anônimo"}: texto latino integral para ler aqui, na edição de {m["edicao"]["editor"]} ({m["edicao"]["ano"]}), com fonte e licença.'
+    desc = f'{m["titulo_latino"]}, de {w.get("author") or "autor anônimo"}: texto latino integral para ler aqui, na edição de {m["ed_curta"]}, com fonte e licença.'
     if len(ps) == 1:
         corpo, toc = LT.corpo_html(ps[0]['blocos'], m['forma'])
         body = f'''<div class="wrap leitor">{_cab_leitura(w, m, base)}
@@ -880,7 +882,7 @@ def p_leitura_parte(id_, p):
     body = f'''<div class="wrap leitor">
 <nav class="migalhas" aria-label="Você está em"><a href="{base}catalogo.html#{e(id_)}">← Catálogo</a> · <a href="../{e(id_)}.html">{e(m["titulo_latino"])}</a> · <a href="{base}leituras/">Ler aqui</a></nav>
 <header class="leitura-cab parte c{w["reading_stage"]}"><p class="kicker" lang="la">{e(m["titulo_latino"])} · {e(w.get("author") or "")}</p><h1 lang="la">{e(p["titulo"])}</h1>
-<p class="lvl">Livro {n} de {len(ps)} · edição de {e(m["edicao"]["editor"])} ({e(m["edicao"]["ano"])}) · <a href="../{e(id_)}.html#fonte">fonte e licença</a>{f' · <a href="{base}{dl["epub"]}" download>EPUB</a>' if "epub" in dl else ""}{f' · <a href="{base}{dl["pdf"]}" download>PDF</a>' if "pdf" in dl else ""}</p></header>
+<p class="lvl">Livro {n} de {len(ps)} · edição de {e(m["ed_curta"])} · <a href="../{e(id_)}.html#fonte">fonte e licença</a>{f' · <a href="{base}{dl["epub"]}" download>EPUB</a>' if "epub" in dl else ""}{f' · <a href="{base}{dl["pdf"]}" download>PDF</a>' if "pdf" in dl else ""}</p></header>
 {LT.CONTROLES}<p class="retomar" hidden></p>{_sumario(toc)}
 <nav class="partes-nav" aria-label="Livros">{ant}{prox}</nav>
 <article class="texto-latino {m["forma"]}" lang="la" data-obra="{e(id_)}" data-parte="{n}" data-partes="{len(ps)}" data-titulo-parte="{e(p["titulo"])}">{corpo}</article>
@@ -888,7 +890,7 @@ def p_leitura_parte(id_, p):
 <p class="atribuicao">{e(m["atribuicao"])} <a href="{e(m["licenca"]["url"])}" rel="license" target="_blank">{e(m["licenca"]["nome"])}</a>.</p>
 </div>'''
     return page(f'leituras/{id_}/{n}.html', f'{p["titulo"]} · {m["titulo_latino"]} ({w.get("author") or ""})',
-                f'{m["titulo_latino"]}, {p["titulo"]}: texto latino para ler aqui, edição de {m["edicao"]["editor"]} ({m["edicao"]["ano"]}).', body)
+                f'{m["titulo_latino"]}, {p["titulo"]}: texto latino para ler aqui, edição de {m["ed_curta"]}.', body)
 
 def p_leituras_index():
     ws = sorted((find(i) for i in TEXTOS), key=lambda w: w['i'])
@@ -898,7 +900,7 @@ def p_leituras_index():
 <div class="continuar" hidden><h2>Continuar lendo</h2><ul class="continuar-lista"></ul></div>
 <div class="grid">{"".join(card(w, base="../") for w in ws)}</div>
 <p class="legend" style="margin-top:1.5rem"><a href="../catalogo.html">Ver o catálogo completo ({N} recursos)</a></p></div>'''
-    return page('leituras/index.html', 'Ler aqui: textos latinos completos', f'{NT} obras latinas completas (César, Cícero, Salústio, Tito Lívio, Virgílio, Ovídio, Fedro) para ler online, com PDF e EPUB e fonte identificada.', body)
+    return page('leituras/index.html', 'Ler aqui: textos latinos completos', f'{NT} obras latinas completas (César, Cícero, Salústio, Tito Lívio, Tácito, Virgílio, Horácio, Ovídio, Plauto, Terêncio, Sêneca e outros) para ler online, com PDF e EPUB e fonte identificada.', body)
 
 def build_textos(com_pdf):
     os.makedirs(DL_TEXTOS, exist_ok=True)

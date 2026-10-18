@@ -7,7 +7,9 @@ from datetime import datetime, timezone
 e = lambda s: html.escape(str(s), quote=True)
 AUDITORIA = ['1_autor_e_obra', '2_edicao_fonte', '3_data_e_editor', '4_direitos_da_edicao', '5_licenca_da_transcricao',
              '6_permissao_de_reproduzir', '7_permissao_de_derivados', '8_atribuicao_exigida']
-DIVIDIR_ACIMA = 25000   # palavras: obras maiores e com vários livros ganham uma página por livro
+DIVIDIR_ACIMA = 25000
+# o código deste módulo entra no hash dos downloads: mudar a forma de gerar PDF/EPUB regenera todos os arquivos
+GERADOR = hashlib.sha1(open(__file__, 'rb').read()).hexdigest()   # palavras: obras maiores e com vários livros ganham uma página por livro
 
 def carregar(root, catalogo):
     """Lê e valida textos/. catalogo: dict id → obra do catálogo. Sai com erro se algo não confere."""
@@ -24,14 +26,20 @@ def carregar(root, catalogo):
         if m.get('id') != id_: errs.append(f'{id_}: metadata.id diferente da pasta')
         if id_ not in catalogo: errs.append(f'{id_}: não está em data/catalogo.json')
         if m.get('decisao') != 'hospedar': errs.append(f'{id_}: decisao != hospedar')
-        for k in ('titulo_latino', 'forma', 'edicao', 'transcricao', 'licenca', 'atribuicao', 'auditoria', 'normalizacao', 'verificado_em'):
+        for k in ('titulo_latino', 'forma', 'edicoes', 'transcricao', 'licenca', 'atribuicao', 'auditoria', 'normalizacao', 'verificado_em'):
             if not m.get(k): errs.append(f'{id_}: falta {k}')
         for k in AUDITORIA:
             if not (m.get('auditoria') or {}).get(k): errs.append(f'{id_}: auditoria sem {k}')
         if m.get('forma') not in ('prosa', 'verso'): errs.append(f'{id_}: forma inválida')
+        eds = m.get('edicoes') or []
+        m['ed_curta'] = '; '.join(f'{x["editor"]} ({x["ano"]})' for x in eds)
+        m['ed_longa'] = '; '.join(f'<i>{e(x["edicao"])}</i>, ed. {e(x["editor"])} ({e(x["local"])}: {e(x["editora"])}, {e(x["ano"])})' + (f' [{e(x["partes"])}]' if x.get('partes') else '') for x in eds)
+        m['ed_texto'] = '; '.join(f'{x["edicao"]}, ed. {x["editor"]} ({x["local"]}: {x["editora"]}, {x["ano"]})' + (f' [{x["partes"]}]' if x.get('partes') else '') for x in eds)
+        m['arquivos'] = (m.get('transcricao') or {}).get('arquivos') or []
+        if not m['arquivos']: errs.append(f'{id_}: transcricao.arquivos vazio')
         m['blocos'] = parse(txt)
         m['palavras'] = sum(len(b[2].split()) for b in m['blocos'] if b[0] == 'x')
-        m['hash'] = hashlib.sha1((txt + json.dumps({k: v for k, v in m.items() if k not in ('blocos', 'palavras')}, sort_keys=True, ensure_ascii=False)).encode()).hexdigest()[:12]
+        m['hash'] = hashlib.sha1((GERADOR + txt + json.dumps({k: v for k, v in m.items() if k not in ('blocos', 'palavras')}, sort_keys=True, ensure_ascii=False)).encode()).hexdigest()[:12]
         m['partes'] = partes(m)
         out[id_] = m
     if errs: raise SystemExit('textos/ inválido:\n  ' + '\n  '.join(errs))
@@ -69,6 +77,11 @@ def _inline(t):
 def corpo_html(blocos, forma, xhtml=False, pdf=False):
     """HTML do texto latino. Ids estáveis por página (s-k para seções, p-ref para parágrafos, v-k-n para versos)."""
     out, verso_aberto, sec, toc, primeiro = [], False, 0, [], True
+    vistos = set()
+    def uid(base):   # ids únicos na página (refs repetidas ou vazias no texto-fonte não podem gerar ids iguais)
+        i, k = base, 2
+        while i in vistos: i = f'{base}~{k}'; k += 1
+        vistos.add(i); return i
     def fecha():
         nonlocal verso_aberto
         if verso_aberto: out.append('</div>'); verso_aberto = False
@@ -83,15 +96,20 @@ def corpo_html(blocos, forma, xhtml=False, pdf=False):
             fecha(); out.append(f'<p class="fala">{e(b[1])}</p>')
         elif b[0] == 'p':
             fecha()
-            ref = b[1]; rid = 'p-' + re.sub(r'[^\w.-]', '_', ref)
+            ref = b[1]
+            if not ref:   # linha sem número (saudação de carta, rubrica): sem âncora
+                out.append(f'<p class="par sem-ref">{_inline(b[2])}</p>'); continue
+            rid = uid('p-' + re.sub(r'[^\w.-]', '_', ref))
             mostra = ref.split('.')[-1] if '.' in ref else ref
             out.append(f'<p class="par" id="{rid}"><span class="ref">{e(mostra)}</span> {_inline(b[2])}</p>')
         elif b[0] == 'v':
             if not verso_aberto: out.append('<div class="versos">'); verso_aberto = True
-            n = b[1]; vid = f'v-{sec}-{re.sub(r"[^\w-]", "_", n)}'
-            num = e(n) if (primeiro or (n.isdigit() and int(n) % 5 == 0)) else ''
-            out.append(f'<p class="l" id="{vid}"><span class="n">{num}</span>{_inline(b[2])}</p>' if xhtml or pdf else
-                       f'<span class="l" id="{vid}"><span class="n">{num}</span>{_inline(b[2])}</span>')
+            n = b[1]
+            idattr = f' id="{uid(f"v-{sec}-" + re.sub(r"[^\w-]", "_", n))}"' if n else ''
+            num = e(n) if (n and (primeiro or (n.isdigit() and int(n) % 5 == 0))) else ''
+            cls = 'l' if n else 'l sem-ref'
+            out.append(f'<p class="{cls}"{idattr}><span class="n">{num}</span>{_inline(b[2])}</p>' if xhtml or pdf else
+                       f'<span class="{cls}"{idattr}><span class="n">{num}</span>{_inline(b[2])}</span>')
             primeiro = False
     fecha()
     return '\n'.join(out), toc
@@ -104,13 +122,16 @@ def ficha(w, m, DIF, GRADUS, ROMAN):
     return '<dl class="ficha">' + ''.join(f'<div><dt>{k}</dt><dd>{e(v)}</dd></div>' for k, v in itens) + '</dl>'
 
 def fonte_html(m, w):
-    ed, tr, li = m['edicao'], m['transcricao'], m['licenca']
+    tr, li = m['transcricao'], m['licenca']
+    arqs = m['arquivos']
+    arq_html = (f'<a href="{e(arqs[0])}" target="_blank" rel="noopener">{e(tr["nome"])}</a>' if len(arqs) == 1 else
+                f'{e(tr["nome"])}: ' + ', '.join(f'<a href="{e(a)}" target="_blank" rel="noopener">{e(a.rsplit("/", 1)[1].split(".perseus")[0])}</a>' for a in arqs))
     norm = ''.join(f'<li>{e(x)}</li>' for x in m['normalizacao'])
     aud = ''.join(f'<li><b>{e(k.split("_", 1)[1].replace("_", " ").capitalize())}:</b> {e(m["auditoria"][k])}</li>' for k in AUDITORIA)
     return f'''<section class="fonte-direitos" id="fonte"><h2>Fonte, edição e direitos</h2>
 <dl class="ficha">
-<div><dt>Edição impressa</dt><dd><i>{e(ed["edicao"])}</i>, ed. {e(ed["editor"])} ({e(ed["local"])}: {e(ed["editora"])}, {e(ed["ano"])})</dd></div>
-<div><dt>Transcrição digital</dt><dd><a href="{e(tr["arquivo"])}" target="_blank" rel="noopener">{e(tr["nome"])}</a> (versão {e(tr["commit"][:7])}, consultada em {e(tr["acessado_em"])})</dd></div>
+<div><dt>Edição impressa</dt><dd>{m["ed_longa"]}</dd></div>
+<div><dt>Transcrição digital</dt><dd>{arq_html} (versão {e(tr["commit"][:7])}, consultada em {e(tr["acessado_em"])})</dd></div>
 <div><dt>Licença</dt><dd><a href="{e(li["url"])}" target="_blank" rel="license noopener">{e(li["nome"])}</a>. {e(li["declaracao"])}</dd></div>
 <div><dt>No catálogo</dt><dd><a href="{e(w["source_url"])}" target="_blank" rel="noopener">{e(w["source_name"])} ↗</a></dd></div>
 </dl>
@@ -149,17 +170,17 @@ h3 { font-size: 11pt; margin: 6mm 0 2.5mm; page-break-after: avoid; font-style: 
 
 def pdf_html(w, m, SITE, ROMAN):
     corpo, _ = corpo_html(m['blocos'], m['forma'], pdf=True)
-    ed, li = m['edicao'], m['licenca']
+    li = m['licenca']
     norm = ''.join(f'<li>{e(x)}</li>' for x in m['normalizacao'])
     return f'''<!doctype html><html lang="la"><head><meta charset="utf-8"><title>{e(w["title"])}</title>
 <meta name="author" content="{e(w.get("author") or "")}"><meta name="description" content="{e(m["atribuicao"])}">
 <style>{PDF_CSS}</style></head><body>
 <section class="capa"><p class="k">Bibliotheca Latina · textus Latinus</p><h1>{e(m["titulo_latino"])}</h1><p class="autor">{e(w.get("author") or "")}</p>
-<div class="fio"></div><p class="ed">Texto da edição de {e(ed["editor"])}<br><i>{e(ed["edicao"])}</i><br>{e(ed["local"])}: {e(ed["editora"])}, {e(ed["ano"])}</p>
+<div class="fio"></div><p class="ed">Texto latino: {m["ed_longa"]}</p>
 <p class="ed">{e(SITE)}leituras/{e(w["id"])}.html</p></section>
 <section class="direitos" lang="pt-BR"><h2>Fonte e licença</h2><p>{e(m["atribuicao"])}</p>
 <p>Licença: <a href="{e(li["url"])}">{e(li["nome"])}</a> ({e(li["url"])}). Você pode copiar, redistribuir e adaptar este arquivo, dando o crédito acima e mantendo a mesma licença.</p>
-<p>Transcrição: {e(m["transcricao"]["arquivo"])}</p>
+<p>Transcrição: {"; ".join(e(a) for a in m["arquivos"])}</p>
 <p><b>Alterações em relação à fonte</b></p><ul>{norm}</ul><p>Omitido: {e("; ".join(m["omitido"]))}.</p>
 <p>Gerado em {datetime.now(timezone.utc).date().isoformat()} pela Bibliotheca Latina. O texto latino não foi modernizado nem resumido.</p></section>
 <main lang="la">{corpo}</main></body></html>'''
@@ -181,7 +202,7 @@ def _xhtml(titulo, corpo, lang='la'):
 <body>{corpo}</body></html>'''
 
 def build_epub(w, m, destino, SITE):
-    ed, li = m['edicao'], m['licenca']
+    li = m['licenca']
     uid = 'urn:uuid:' + str(uuid.uuid5(uuid.NAMESPACE_URL, SITE + 'leituras/' + w['id']))
     caps = []
     for p in m['partes']:
@@ -189,11 +210,11 @@ def build_epub(w, m, destino, SITE):
         corpo, toc = corpo_html(bl, m['forma'], xhtml=True)
         caps.append((f'parte{p["n"]:02d}.xhtml', p['titulo'] or m['titulo_latino'], corpo, toc))
     capa = f'''<section epub:type="titlepage"><h1>{e(m["titulo_latino"])}</h1><p class="autor">{e(w.get("author") or "")}</p>
-<p class="ed">Texto da edição de {e(ed["editor"])}: <i>{e(ed["edicao"])}</i>, {e(ed["local"])}: {e(ed["editora"])}, {e(ed["ano"])}.</p><p class="ed">Bibliotheca Latina · {e(SITE)}</p></section>'''
+<p class="ed">Texto latino: {m["ed_longa"]}.</p><p class="ed">Bibliotheca Latina · {e(SITE)}</p></section>'''
     norm = ''.join(f'<li>{e(x)}</li>' for x in m['normalizacao'])
     direitos = f'''<section class="direitos" epub:type="copyright-page"><h2>Fonte e licença</h2><p>{e(m["atribuicao"])}</p>
 <p>Licença: <a href="{e(li["url"])}">{e(li["nome"])}</a>. Você pode copiar, redistribuir e adaptar este arquivo, dando o crédito acima e mantendo a mesma licença.</p>
-<p>Transcrição: <a href="{e(m["transcricao"]["arquivo"])}">{e(m["transcricao"]["nome"])}</a></p><p>Alterações em relação à fonte:</p><ul>{norm}</ul></section>'''
+<p>Transcrição: {e(m["transcricao"]["nome"])}{"".join(f' <a href="{e(a)}">[{k}]</a>' for k, a in enumerate(m["arquivos"], 1))}</p><p>Alterações em relação à fonte:</p><ul>{norm}</ul></section>'''
     nav_items = ''
     for f, t, _, toc in caps:
         subs = ''.join(f'<li><a href="{f}#{a}">{e(tt)}</a></li>' for lv, tt, a in toc if lv == 2)
@@ -210,7 +231,7 @@ def build_epub(w, m, destino, SITE):
 <package xmlns="http://www.idpf.org/2007/opf" version="3.0" unique-identifier="uid" xml:lang="la">
 <metadata xmlns:dc="http://purl.org/dc/elements/1.1/">
 <dc:identifier id="uid">{uid}</dc:identifier><dc:title>{e(m["titulo_latino"])}</dc:title><dc:creator>{e(w.get("author") or "")}</dc:creator>
-<dc:language>la</dc:language><dc:publisher>Bibliotheca Latina</dc:publisher><dc:source>{e(ed["edicao"])}, ed. {e(ed["editor"])} ({e(ed["ano"])}); {e(m["transcricao"]["arquivo"])}</dc:source>
+<dc:language>la</dc:language><dc:publisher>Bibliotheca Latina</dc:publisher><dc:source>{e(m["ed_texto"])}; {e(m["transcricao"]["nome"])}</dc:source>
 <dc:rights>{e(li["nome"])} · {e(m["atribuicao"])}</dc:rights><meta property="dcterms:modified">{mod}</meta>
 </metadata>
 <manifest><item id="nav" href="nav.xhtml" media-type="application/xhtml+xml" properties="nav"/><item id="css" href="estilo.css" media-type="text/css"/>

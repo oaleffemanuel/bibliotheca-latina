@@ -1,6 +1,6 @@
 # Bibliotheca Latina
 
-*Ab initiis ad fontes.* Uma biblioteca digital gratuita e curada para quem estuda latim: 106 recursos verificados, organizados em sete etapas de leitura, das primeiras palavras aos autores romanos, aos Padres da Igreja e à escolástica medieval. Inclui um guia de leitura em PDF e uma planilha de acompanhamento.
+*Ab initiis ad fontes.* Uma biblioteca digital gratuita e curada para quem estuda latim: 145 recursos verificados, 56 deles com o texto latino integral para ler no próprio site, organizados em sete etapas de leitura, das primeiras palavras aos autores romanos, aos Padres da Igreja e à escolástica medieval. Inclui um guia de leitura em PDF e uma planilha de acompanhamento.
 
 🌐 **Site (quando publicado):** https://oaleffemanuel.github.io/bibliotheca-latina/
 
@@ -11,8 +11,8 @@ Para quem só quer ler, basta o site. Não precisa de conta nem de saber usar o 
 | | |
 |---|---|
 | [Aprenda Latim](docs/aprenda/index.html) | *Elementa Linguae Latinae*: livro digital original em português, em quatro partes (Fundamenta, Grammatica, Lectio, Auctores). Lições com objetivos, exemplos em latim, tabelas, diagramas, exercícios com resposta e leituras do catálogo. 54 capítulos em três níveis (essencial, intermediário, avançado), todos disponíveis, com botão "Reportar problema" por e-mail em cada capítulo. A situação editorial interna e as pendências de revisão ficam em `conteudo/` (ver `FLUXO-EDITORIAL.md` §8 e `AUDITORIA-GERAL.md`); o site mostra uma nota editorial única na página Sobre; capítulo-modelo: 3, *Dē cāsibus*. |
-| [Catálogo](docs/catalogo.html) | 106 recursos com busca e filtros por etapa, período histórico, gênero, dificuldade, áudio, formato, fonte, gratuito/comercial e "Ler aqui". No celular, os filtros ficam recolhidos atrás do botão "Filtros"; a busca fica sempre visível. Marcação de "Quero ler", "Lendo" e "Lido" salva no navegador. |
-| [Ler aqui](docs/leituras/index.html) | Textos latinos integrais para ler no próprio site (primeiro lote: Fedro, César, Cícero, Salústio, Tito Lívio, Virgílio, Ovídio), com ajuste de letra, largura e aparência, ponto de leitura salvo no navegador, fonte e licença visíveis, e PDF e EPUB gerados. Obras longas têm uma página por livro. |
+| [Catálogo](docs/catalogo.html) | 145 recursos com busca e filtros por etapa, período histórico, gênero, dificuldade, áudio, formato, fonte, gratuito/comercial e "Ler aqui". No celular, os filtros ficam recolhidos atrás do botão "Filtros"; a busca fica sempre visível. Marcação de "Quero ler", "Lendo" e "Lido" salva no navegador. |
+| [Ler aqui](docs/leituras/index.html) | Textos latinos integrais para ler no próprio site (56 obras: César, Cícero, Salústio, Tito Lívio, Tácito, Suetônio, Virgílio, Horácio, Ovídio, Catulo, Plauto, Terêncio, Sêneca, Juvenal, Petrônio, Apuleio e outros), com ajuste de letra, largura e aparência, ponto de leitura salvo no navegador, fonte e licença visíveis, e PDF e EPUB gerados. Obras longas têm uma página por livro. |
 | [Percurso de leitura](docs/percurso.html) | As sete etapas, o teste "onde começar", o método e dicas para quem fala português. |
 | [Recursos de estudo](docs/recursos.html) | Métodos, gramáticas, dicionários e ferramentas, com notas sobre pronúncia. |
 | [Guia de leitura (PDF)](docs/downloads/guia-de-leitura-bibliotheca-latina.pdf) | O percurso completo em PDF. |
@@ -37,7 +37,7 @@ As etapas são caminhos sugeridos, não uma escala universal de dificuldade: VI 
 
 Acesso gratuito não é permissão para redistribuir. Por isso:
 
-- **Só textos auditados são hospedados.** A seção *Ler aqui* (`docs/leituras/`) traz o texto latino integral de obras cuja edição e transcrição permitem redistribuir e adaptar (primeiro lote: dez obras da Perseus Digital Library, CC BY-SA 4.0), com PDF e EPUB. Cada obra tem `textos/<id>/texto.txt` e `metadata.json` com a auditoria de direitos. Todos os demais recursos são links para a página oficial da fonte (Perseus, Dickinson College Commentaries, Open Book Publishers, Project Gutenberg, Internet Archive, Latin Wikisource, Corpus Corporum, LibriVox e outras). Nenhum áudio é hospedado.
+- **Só textos auditados são hospedados.** A seção *Ler aqui* (`docs/leituras/`) traz o texto latino integral de obras cuja edição e transcrição permitem redistribuir e adaptar (56 obras da Perseus Digital Library, CC BY-SA 4.0), com PDF e EPUB. Cada obra tem `textos/<id>/texto.txt` e `metadata.json` com a auditoria de direitos. Todos os demais recursos são links para a página oficial da fonte (Perseus, Dickinson College Commentaries, Open Book Publishers, Project Gutenberg, Internet Archive, Latin Wikisource, Corpus Corporum, LibriVox e outras). Nenhum áudio é hospedado.
 - Cada recurso registra licença, endereço da declaração de direitos, situação (domínio público, Creative Commons, acesso aberto limitado, comercial, não verificado) e data da última verificação.
 - Os livros do método *Lingua Latina per se Illustrata* aparecem como referência comercial, com link para a Hackett Publishing, sem reprodução de conteúdo.
 - A política completa está em [`LICENCAS.md`](LICENCAS.md); o registro recurso a recurso, em [`data/auditoria-direitos.csv`](data/auditoria-direitos.csv); os candidatos ainda não verificados, em [`data/candidatos.json`](data/candidatos.json).

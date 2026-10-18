@@ -1490,7 +1490,7 @@
 731	evasisse viam, subito cum creber ad auris
 732	visus adesse pedum sonitus, genitorque per umbram
 733	prospiciens; “Nate” exclamat, “fuge nate, propinquant.”
-734	“Ardentis clipeos atque aera micantia cerno!”—
+734	“Ardentis clipeos atque aera micantia cerno!” —
 735	Hic mihi nescio quod trepido male numen amicum
 736	confusam eripuit mentem. Namque avia cursu
 737	dum sequor, et nota excedo regione viarum,
@@ -1531,7 +1531,7 @@
 772	infelix simulacrum atque ipsius umbra Creüsae
 773	visa mihi ante oculos et nota maior imago.
 774	Obstipui, steteruntque comae et vox faucibus haesit.
-775	[Tum sic adfari et curas his demere dictis :]
+775	[Tum sic adfari et curas his demere dictis:]
 776	“Quid tantum insano iuvat indulgere dolori,
 777	O dulcis coniunx? Non haec sine numine divom
 778	eveniunt; nec te hinc comitem asportare Creüsam
@@ -2409,7 +2409,7 @@
 124	speluncam Dido dux et Troianus eandem
 125	devenient; adero, et, tua si mihi certa voluntas,
 126	[conubio iungam stabili propriamque dicabo,]
-127	hic hymenaeus erit.”—Non adversata petenti
+127	hic hymenaeus erit.” —Non adversata petenti
 128	adnuit, atque dolis risit Cytherea repertis.
 129	Oceanum interea surgens Aurora reliquit.
 130	It portis iubare exorto delecta iuventus;
@@ -4748,7 +4748,7 @@
 883	tu Marcellus eris. Manibus date lilia plenis,
 884	purpureos spargam flores, animamque nepotis
 885	his saltem adcumulem donis, et fungar inani
-886	munere”—Sic tota passim regione vagantur
+886	munere” —Sic tota passim regione vagantur
 887	aëris in campis latis, atque omnia lustrant.
 888	Quae postquam Anchises natum per singula duxit,
 889	incenditque animum famae venientis amore,
@@ -4881,7 +4881,7 @@
 113	exiguam in Cererem penuria adegit edendi
 114	et violare manu malisque audacibus orbem
 115	fatalis crusti patulis nec parcere quadris:
-116	“Heus ! etiam mensas consumimus,” inquit Iulus,
+116	“Heus! etiam mensas consumimus,” inquit Iulus,
 117	nec plura adludens. Ea vox audita laborum
 118	prima tulit finem, primamque loquentis ab ore
 119	eripuit pater ac stupefactus numine pressit.
@@ -4962,7 +4962,7 @@
 194	atque haec ingressis placido prior edidit ore:
 195	“Dicite, Dardanidae (neque enim nescimus et urbem
 196	et genus, auditique advertitis aequore cursum),
-197	quid petitis ? Quae causa rates aut cuius egentis
+197	quid petitis? Quae causa rates aut cuius egentis
 198	litus ad Ausonium tot per vada caerula vexit?
 199	Sive errore viae seu tempestatibus acti,
 200	qualia multa mari nautae patiuntur in alto,
@@ -5059,13 +5059,13 @@
 291	deseruisse rates: stetit acri fixa dolore.
 292	Tum quassans caput haec effundit pectore dicta:
 293	“Heu stirpem invisam et fatis contraria nostris
-294	fata Phrygum ! Num Sigeis occumbere campis,
+294	fata Phrygum! Num Sigeis occumbere campis,
 295	num capti potuere capi, num incensa cremavit
-296	Troia viros ? Medias acies mediosque per ignis
+296	Troia viros? Medias acies mediosque per ignis
 297	invenere viam. At, credo, mea numina tandem
 298	fessa iacent odiis aut exsaturata quievi.
 299	Quin etiam patria excussos infesta per undas
-300	ausa sequi et profugis toto me opponere ponto !
+300	ausa sequi et profugis toto me opponere ponto!
 301	Absumptae in Teucros vires caelique marisque.
 302	Quid Syrtes aut Scylla mihi, quid vasta Charybdis
 303	profuit? Optato conduntur Thybridis alveo,
@@ -5125,11 +5125,11 @@
 357	mollius et solito matrum de more locuta est,
 358	multa super nata lacrimans Phrygiisque hymenaeis:
 359	“Exsulibusne datur ducenda Lavinia Teucris,
-360	O genitor, nec te miseret gnataeque tuique ?
+360	O genitor, nec te miseret gnataeque tuique?
 361	Nec matris miseret, quam primo aquilone relinquet
 362	perfidus alta petens abducta virgine praedo?
 363	An non sic Phrygius penetrat Lacedaemona pastor
-364	Ledaeamque Helenam Troianas vexit ad urbes ?
+364	Ledaeamque Helenam Troianas vexit ad urbes?
 365	Quid tua sancta fides, quid cura antiqua tuorum
 366	et consanguineo totiens data dextera Turno?
 367	Si gener externa petitur de gente Latinis

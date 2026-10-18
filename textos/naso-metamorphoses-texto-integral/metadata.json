@@ -2,16 +2,20 @@
   "id": "naso-metamorphoses-texto-integral",
   "titulo_latino": "Metamorphoses",
   "forma": "verso",
-  "edicao": {
-    "editor": "Hugo Magnus",
-    "edicao": "P. Ovidi Nasonis Metamorphoseon libri XV",
-    "local": "Gotha",
-    "editora": "F. A. Perthes",
-    "ano": "1892"
-  },
+  "edicoes": [
+    {
+      "editor": "Hugo Magnus",
+      "edicao": "P. Ovidi Nasonis Metamorphoseon libri XV",
+      "local": "Gotha",
+      "editora": "F. A. Perthes",
+      "ano": "1892"
+    }
+  ],
   "transcricao": {
     "nome": "Perseus Digital Library (Tufts University), repositório PerseusDL/canonical-latinLit",
-    "arquivo": "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0959/phi006/phi0959.phi006.perseus-lat2.xml",
+    "arquivos": [
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0959/phi006/phi0959.phi006.perseus-lat2.xml"
+    ],
     "commit": "128a05afa9cc7179ab18f8d05f78a9f1dd50e415",
     "acessado_em": "2026-10-18"
   },
@@ -23,9 +27,9 @@
   "atribuicao": "Texto latino: P. Ovidi Nasonis Metamorphoseon libri XV, ed. Hugo Magnus (Gotha: F. A. Perthes, 1892). Transcrição digital: Perseus Digital Library, Tufts University (PerseusDL/canonical-latinLit), CC BY-SA 4.0. Adaptação de formato (texto, PDF, EPUB) pela Bibliotheca Latina, distribuída sob a mesma licença CC BY-SA 4.0.",
   "auditoria": {
     "1_autor_e_obra": "Autor antigo; obra em domínio público.",
-    "2_edicao_fonte": "P. Ovidi Nasonis Metamorphoseon libri XV, ed. Hugo Magnus, Gotha, 1892 (lida no <sourceDesc> do arquivo TEI).",
+    "2_edicao_fonte": "P. Ovidi Nasonis Metamorphoseon libri XV, ed. Hugo Magnus (Gotha: F. A. Perthes, 1892) (lida no <sourceDesc> do arquivo TEI).",
     "3_data_e_editor": "1892; Hugo Magnus (†1924; fonte: https://de.wikipedia.org/wiki/Hugo_Magnus_(Philologe)).",
-    "4_direitos_da_edicao": "Domínio público no Brasil (editor falecido em 1924; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (editor falecido em 1924); Lei 9.610/98, art. 41. Nos EUA, domínio público (publicada antes de 1931).",
     "5_licenca_da_transcricao": "CC BY-SA 4.0 (Perseus Digital Library).",
     "6_permissao_de_reproduzir": "Sim: CC BY-SA 4.0 permite copiar e redistribuir.",
     "7_permissao_de_derivados": "Sim: CC BY-SA 4.0 permite adaptar (PDF, EPUB), com atribuição e mesma licença.",

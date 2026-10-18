@@ -1233,7 +1233,7 @@
 432	Qua venata foret silva, narrare parantem
 433	impedit amplexu, nec se sine crimine prodit.
 434	Illa quidem contra, quantum modo femina possit
-435	(adspiceres utinam, Saturnia: mitior esses !),
+435	(adspiceres utinam, Saturnia: mitior esses!),
 436	illa quidem pugnat: sed quem superare puella,
 437	quisve Iovem poterat? — Superum petit aethera victor
 438	Iuppiter: huic odio nemus est et conscia silva.
@@ -4012,7 +4012,7 @@
 85	quattuor in partes certamina quattuor addit,
 86	clara colore suo, brevibus distincta sigillis.
 87	Threiciam Rhodopen habet angulus unus et Haemum
-88	(nunc gelidi montes, mortalia corpora quondam !),
+88	(nunc gelidi montes, mortalia corpora quondam!),
 89	nomina summorum sibi qui tribuere deorum.
 90	Altera Pygmaeae fatum miserabile matris
 91	pars habet: hanc Iuno victam certamine iussit
@@ -5355,7 +5355,7 @@
 684	non regit, et revolat nullo referente cruentum.”
 685	Tum vero iuvenis Nereius omnia quaerit,
 686	cur sit et unde datum, quis tanti muneris auctor.
-687	Quae petit, ille refert. Sed enim (narrare pudori est !),
+687	Quae petit, ille refert. Sed enim (narrare pudori est!),
 688	qua tulerit mercede silet; tactusque dolore
 689	coniugis amissae lacrimis ita fatur obortis:
 690	“Hoc me, nate dea, (quis possit credere?) telum
@@ -5409,7 +5409,7 @@
 738	magna foret? Non sum contentus et in mea pugno
 739	vulnera, dum census dare me pro nocte loquendo
 740	muneraque augendo tandem dubitare coegi.
-741	Exclamo: “Male (fictor adest !), male fictus adulter
+741	Exclamo: “Male (fictor adest!), male fictus adulter
 742	verus eram coniunx! me, perfida, teste teneris!”
 743	Illa nihil. Tacito tantummodo victa pudore
 744	insidiosa malo cum coniuge limina fugit;
@@ -5658,7 +5658,7 @@
 120	non genetrix Europa tibi ea, sed inhospita Syrtis,
 121	Armeniae tigres austroque agitata Charybdis.
 122	Nec Iove tu natus, nec mater imagine tauri
-123	ducta tua est (generis falsa est ea fabula !): verus
+123	ducta tua est (generis falsa est ea fabula!): verus
 124	et ferus et captus nullius amore iuvencae,
 125	qui te progenuit, taurus fuit. Exige poenas,
 126	Nise pater! gaudete malis, modo prodita, nostris
@@ -7639,7 +7639,7 @@
 397	Seu furor est, habeo, quae carmine sanet et herbis,
 398	sive aliquis nocuit, magico lustrabere ritu,
 399	ira deum sive est, sacris placabilis ira.
-400	Quid rear ulterius ? Certe fortuna domusque
+400	Quid rear ulterius? Certe fortuna domusque
 401	sospes et in cursu est, vivit genetrixque paterque.”
 402	Myrrha, patre audito, suspiria duxit ab imo
 403	pectore. Nec nutrix etiamnum concipit ullum
@@ -7972,7 +7972,7 @@
 728	At cruor in florem mutabitur. An tibi quondam
 729	femineos artus in olentes vertere mentas,
 730	Persephone, licuit: nobis Cinyreius heros
-731	invidiae mutatus erit ?” — Sic fata cruorem
+731	invidiae mutatus erit?” — Sic fata cruorem
 732	nectare odorato sparsit: qui tactus ab illo
 733	intumuit sic ut fulvo perlucida caeno
 734	surgere bulla solet. Nec plena longior hora
@@ -8713,7 +8713,7 @@
 718	et, quamvis aberat, corpus tamen esse liquebat,
 719	qui foret, ignorans, quia naufragus, omine mota est
 720	et, tamquam ignoto lacrimam daret, “heu! miser” inquit
-721	“quisquis es, et siqua est coniunx tibi !” Fluctibus actum
+721	“quisquis es, et siqua est coniunx tibi!” Fluctibus actum
 722	fit propius corpus; quod quo magis illa tuetur,
 723	hoc minus et minus est mentis sua, iamque propinquae
 724	admotum terrae, iam quod cognoscere posset,
@@ -9669,7 +9669,7 @@
 239	At sua Tydides mecum communicat acta,
 240	me probat et socio semper confidit Ulixe.
 241	Est aliquid, de tot Graiorum milibus unum
-242	a Diomede legi (nec me sors ire iubebat !),
+242	a Diomede legi (nec me sors ire iubebat!),
 243	si tamen et spreto noctisque hostisque periclo
 244	ausum eadem, quae nos, Phrygia de gente Dolona
 245	interimo, non ante tamen, quam cuncta coegi
@@ -11951,7 +11951,7 @@
 676	evinctus vitta crines albente sacerdos:
 677	“En deus est deus est! Animis linguisque favete,
 678	quisquis ades!” dixit. “Sis, o pulcherrime, visus
-679	utiliter populosque iuves tua sacra colentes !”
+679	utiliter populosque iuves tua sacra colentes!”
 680	Quisquis adest, visum venerantur numen, et omnes
 681	verba sacerdotis referunt geminata piumque
 682	Aeneadae praestant et mente et voce favorem.

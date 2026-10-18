@@ -1,0 +1,79 @@
+{
+  "id": "nepos-de-viris-illustribus-vitae",
+  "titulo_latino": "Vitae (De viris illustribus)",
+  "forma": "prosa",
+  "edicoes": [
+    {
+      "editor": "Alfred Fleckeisen e Karl Halm",
+      "edicao": "Cornelii Nepotis Vitae",
+      "local": "Leipzig",
+      "editora": "Teubner",
+      "ano": "1886"
+    }
+  ],
+  "transcricao": {
+    "nome": "Perseus Digital Library (Tufts University), repositório PerseusDL/canonical-latinLit",
+    "arquivos": [
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo001/phi0588.abo001.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo002/phi0588.abo002.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo003/phi0588.abo003.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo004/phi0588.abo004.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo005/phi0588.abo005.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo006/phi0588.abo006.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo007/phi0588.abo007.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo008/phi0588.abo008.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo009/phi0588.abo009.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo010/phi0588.abo010.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo011/phi0588.abo011.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo012/phi0588.abo012.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo013/phi0588.abo013.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo014/phi0588.abo014.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo015/phi0588.abo015.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo016/phi0588.abo016.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo017/phi0588.abo017.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo018/phi0588.abo018.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo019/phi0588.abo019.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo020/phi0588.abo020.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo021/phi0588.abo021.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo022/phi0588.abo022.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo023/phi0588.abo023.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo024/phi0588.abo024.perseus-lat2.xml",
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0588/abo025/phi0588.abo025.perseus-lat2.xml"
+    ],
+    "commit": "128a05afa9cc7179ab18f8d05f78a9f1dd50e415",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br",
+    "declaracao": "Sem declaração no arquivo; vale a licença geral do repositório: “Unless otherwise indicated, all contents of this repository are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License” (README e LICENSE do repositório)."
+  },
+  "atribuicao": "Texto latino: Cornelii Nepotis Vitae, ed. Alfred Fleckeisen e Karl Halm (Leipzig: Teubner, 1886). Transcrição digital: Perseus Digital Library, Tufts University (PerseusDL/canonical-latinLit), CC BY-SA 4.0. Adaptação de formato (texto, PDF, EPUB) pela Bibliotheca Latina, distribuída sob a mesma licença CC BY-SA 4.0.",
+  "auditoria": {
+    "1_autor_e_obra": "Autor antigo; obra em domínio público.",
+    "2_edicao_fonte": "Cornelii Nepotis Vitae, ed. Alfred Fleckeisen e Karl Halm (Leipzig: Teubner, 1886) (lida no <sourceDesc> do arquivo TEI).",
+    "3_data_e_editor": "1886; Alfred Fleckeisen e Karl Halm (†1899; fonte: https://www.wikidata.org/wiki/Q84805 (Fleckeisen, †1899); https://www.wikidata.org/wiki/Q96389 (Halm, †1882)).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (editores falecidos até 1899); Lei 9.610/98, art. 41. Nos EUA, domínio público (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "CC BY-SA 4.0 (Perseus Digital Library).",
+    "6_permissao_de_reproduzir": "Sim: CC BY-SA 4.0 permite copiar e redistribuir.",
+    "7_permissao_de_derivados": "Sim: CC BY-SA 4.0 permite adaptar (PDF, EPUB), com atribuição e mesma licença.",
+    "8_atribuicao_exigida": "Créditos à Perseus Digital Library e à edição-fonte, link da licença, indicação das mudanças; derivados sob CC BY-SA 4.0."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "notas e aparato crítico do editor",
+    "introduções, comentários e traduções da edição impressa"
+  ],
+  "normalizacao": [
+    "Notas do editor e variantes do aparato crítico omitidas (material editorial, não texto latino).",
+    "Acréscimos do editor entre ⟨ ⟩, supressões propostas pelo editor entre [ ], lacunas como * * *, como na edição impressa.",
+    "Correções de digitalização marcadas pela Perseus (<choice>/<corr>) aplicadas; abreviaturas mantidas como impressas.",
+    "Grafia, maiúsculas, u/v, pontuação e ordem do texto mantidas como na edição; nenhuma modernização.",
+    "Espaços e quebras de linha do arquivo XML normalizados; numeração de livros, capítulos, seções e versos preservada.",
+    "Versos citados dentro da prosa aparecem na mesma linha, separados por “ / ”.",
+    "Reúne 25 arquivos TEI da Perseus (um por vida), na ordem da edição.",
+    "Grego em Beta Code (transliteração ASCII do arquivo) convertido para letras gregas Unicode (2 trechos)."
+  ],
+  "verificado_em": "2026-10-18"
+}

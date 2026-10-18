@@ -2,16 +2,20 @@
   "id": "caesar-commentarii-de-bello-gallico-texto-integral",
   "titulo_latino": "Commentarii de bello Gallico (com o livro VIII de A. Hírcio)",
   "forma": "prosa",
-  "edicao": {
-    "editor": "T. Rice Holmes",
-    "edicao": "C. Iuli Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII",
-    "local": "Oxford",
-    "editora": "Clarendon Press (Scriptorum Classicorum Bibliotheca Oxoniensis)",
-    "ano": "1914"
-  },
+  "edicoes": [
+    {
+      "editor": "T. Rice Holmes",
+      "edicao": "C. Iuli Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII",
+      "local": "Oxford",
+      "editora": "Clarendon Press (Scriptorum Classicorum Bibliotheca Oxoniensis)",
+      "ano": "1914"
+    }
+  ],
   "transcricao": {
     "nome": "Perseus Digital Library (Tufts University), repositório PerseusDL/canonical-latinLit",
-    "arquivo": "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0448/phi001/phi0448.phi001.perseus-lat2.xml",
+    "arquivos": [
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi0448/phi001/phi0448.phi001.perseus-lat2.xml"
+    ],
     "commit": "128a05afa9cc7179ab18f8d05f78a9f1dd50e415",
     "acessado_em": "2026-10-18"
   },
@@ -23,9 +27,9 @@
   "atribuicao": "Texto latino: C. Iuli Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII, ed. T. Rice Holmes (Oxford: Clarendon Press (Scriptorum Classicorum Bibliotheca Oxoniensis), 1914). Transcrição digital: Perseus Digital Library, Tufts University (PerseusDL/canonical-latinLit), CC BY-SA 4.0. Adaptação de formato (texto, PDF, EPUB) pela Bibliotheca Latina, distribuída sob a mesma licença CC BY-SA 4.0.",
   "auditoria": {
     "1_autor_e_obra": "Autor antigo; obra em domínio público.",
-    "2_edicao_fonte": "C. Iuli Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII, ed. T. Rice Holmes, Oxford, 1914 (lida no <sourceDesc> do arquivo TEI).",
+    "2_edicao_fonte": "C. Iuli Commentarii Rerum in Gallia Gestarum VII, A. Hirti Commentarius VIII, ed. T. Rice Holmes (Oxford: Clarendon Press (Scriptorum Classicorum Bibliotheca Oxoniensis), 1914) (lida no <sourceDesc> do arquivo TEI).",
     "3_data_e_editor": "1914; T. Rice Holmes (†1933; fonte: https://www.wikidata.org/wiki/Q7668644).",
-    "4_direitos_da_edicao": "Domínio público no Brasil (editor falecido em 1933; Lei 9.610/98, art. 41) e nos EUA (publicada antes de 1931).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (editor falecido em 1933); Lei 9.610/98, art. 41. Nos EUA, domínio público (publicada antes de 1931).",
     "5_licenca_da_transcricao": "CC BY-SA 4.0 (Perseus Digital Library).",
     "6_permissao_de_reproduzir": "Sim: CC BY-SA 4.0 permite copiar e redistribuir.",
     "7_permissao_de_derivados": "Sim: CC BY-SA 4.0 permite adaptar (PDF, EPUB), com atribuição e mesma licença.",

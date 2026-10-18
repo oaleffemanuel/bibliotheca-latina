@@ -1483,6 +1483,7 @@
 4	Qui, magna cum minaris, extricas nihil.
 
 ## Formica et musca.
+	Nihil agere quod non prosit fabella admonet.
 1	Formica et musca contendebant acriter
 2	Quae pluris esset. Musca sic coepit prior:
 3	Conferre nostris tu potes te laudibus?

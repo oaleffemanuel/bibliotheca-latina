@@ -1,42 +1,226 @@
 {
+ "apuleius-metamorphoses": {
+  "epub": "4a0ca76885c3",
+  "pdf": "4a0ca76885c3"
+ },
+ "ausonius-mosella": {
+  "epub": "a3493e49e886",
+  "pdf": "a3493e49e886"
+ },
+ "caesar-commentarii-de-bello-civili": {
+  "epub": "04e093299993",
+  "pdf": "04e093299993"
+ },
  "caesar-commentarii-de-bello-gallico-texto-integral": {
-  "epub": "9c5844e39919",
-  "pdf": "9c5844e39919"
+  "epub": "7468ad4bd708",
+  "pdf": "7468ad4bd708"
+ },
+ "catullus-catulli-carmina": {
+  "epub": "24c5a195d5a2",
+  "pdf": "24c5a195d5a2"
  },
  "cicero-cato-maior-de-senectute": {
-  "epub": "ec8758c2eb19",
-  "pdf": "ec8758c2eb19"
+  "epub": "c5845082ef98",
+  "pdf": "c5845082ef98"
+ },
+ "cicero-commentariolum-petitionis": {
+  "epub": "c2d699b589f3",
+  "pdf": "c2d699b589f3"
+ },
+ "cicero-de-finibus-bonorum-et-malorum": {
+  "epub": "9ef086f90243",
+  "pdf": "9ef086f90243"
+ },
+ "cicero-de-natura-deorum": {
+  "epub": "b5806af01fec",
+  "pdf": "b5806af01fec"
+ },
+ "cicero-de-officiis-latim-e-ingles": {
+  "epub": "66c4ee5f42de",
+  "pdf": "66c4ee5f42de"
+ },
+ "cicero-de-oratore": {
+  "epub": "2f28ce26a496",
+  "pdf": "2f28ce26a496"
+ },
+ "cicero-epistulae-ad-atticum": {
+  "epub": "dfb3cd37d397",
+  "pdf": "dfb3cd37d397"
+ },
+ "cicero-epistulae-ad-familiares": {
+  "epub": "a737a6ece63e",
+  "pdf": "a737a6ece63e"
  },
  "cicero-in-catilinam-i-iv": {
-  "epub": "b47b4b4df6cb",
-  "pdf": "b47b4b4df6cb"
+  "epub": "697871703922",
+  "pdf": "697871703922"
  },
  "cicero-laelius-de-amicitia": {
-  "epub": "57aeb3413435",
-  "pdf": "57aeb3413435"
+  "epub": "115b06b4a50d",
+  "pdf": "115b06b4a50d"
+ },
+ "cicero-philippicae": {
+  "epub": "892ee9c89abd",
+  "pdf": "892ee9c89abd"
+ },
+ "cicero-pro-archia-poeta": {
+  "epub": "e0120b23b698",
+  "pdf": "e0120b23b698"
+ },
+ "cicero-pro-caelio": {
+  "epub": "bde579446a40",
+  "pdf": "bde579446a40"
+ },
+ "cicero-pro-milone": {
+  "epub": "f3a284fa5b7c",
+  "pdf": "f3a284fa5b7c"
+ },
+ "cicero-somnium-scipionis-de-re-publica-vi": {
+  "epub": "3fe5d58d85bb",
+  "pdf": "3fe5d58d85bb"
  },
  "crispus-bellum-catilinae": {
-  "epub": "95ce60e12307",
-  "pdf": "95ce60e12307"
+  "epub": "3b4accbd7280",
+  "pdf": "3b4accbd7280"
+ },
+ "crispus-bellum-iugurthinum": {
+  "epub": "5426f65eef15",
+  "pdf": "5426f65eef15"
+ },
+ "curtius-historiae-alexandri-magni": {
+  "epub": "f38b329eea54",
+  "pdf": "f38b329eea54"
+ },
+ "flaccus-carmina-et-epodi-odes-e-epodos": {
+  "epub": "2fb020aec3ad",
+  "pdf": "2fb020aec3ad"
+ },
+ "flaccus-sermones-epistulae-ars-poetica": {
+  "epub": "b54de9ca84cf",
+  "pdf": "b54de9ca84cf"
+ },
+ "florus-epitome-rerum-romanorum": {
+  "epub": "758de025fb5d",
+  "pdf": "758de025fb5d"
+ },
+ "gellius-noctes-atticae": {
+  "epub": "236a803c9bb1",
+  "pdf": "236a803c9bb1"
+ },
+ "iuvenalis-saturae": {
+  "epub": "861975ca5c78",
+  "pdf": "861975ca5c78"
  },
  "livius-ab-urbe-condita-liber-i": {
-  "epub": "fe5754ad48b1",
-  "pdf": "fe5754ad48b1"
+  "epub": "3369e84df356",
+  "pdf": "3369e84df356"
+ },
+ "lucanus-pharsalia": {
+  "epub": "d0365f0179b8",
+  "pdf": "d0365f0179b8"
  },
  "maro-aeneis-texto-integral": {
-  "epub": "e2a7f709f6e5",
-  "pdf": "e2a7f709f6e5"
+  "epub": "356f8ee066c3",
+  "pdf": "356f8ee066c3"
  },
  "maro-bucolica-eclogae": {
-  "epub": "9a377256b3c0",
-  "pdf": "9a377256b3c0"
+  "epub": "94dadd9a03f3",
+  "pdf": "94dadd9a03f3"
+ },
+ "maro-georgica": {
+  "epub": "10447178e77a",
+  "pdf": "10447178e77a"
+ },
+ "maximus-facta-et-dicta-memorabilia": {
+  "epub": "4a8d342cca4e",
+  "pdf": "4a8d342cca4e"
+ },
+ "naso-amores-liber-i": {
+  "epub": "4a07955d67ed",
+  "pdf": "4a07955d67ed"
+ },
+ "naso-heroides": {
+  "epub": "2f44f41fd069",
+  "pdf": "2f44f41fd069"
  },
  "naso-metamorphoses-texto-integral": {
-  "epub": "6babb8625c81",
-  "pdf": "6babb8625c81"
+  "epub": "a7db02420ef2",
+  "pdf": "a7db02420ef2"
+ },
+ "nepos-de-viris-illustribus-vitae": {
+  "epub": "277da2619ff0",
+  "pdf": "277da2619ff0"
+ },
+ "persius-saturae": {
+  "epub": "9809b670c7af",
+  "pdf": "9809b670c7af"
+ },
+ "petronius-satyricon": {
+  "epub": "393379351022",
+  "pdf": "393379351022"
  },
  "phaedrus-fabulae-aesopiae": {
-  "epub": "e837bcafed85",
-  "pdf": "e837bcafed85"
+  "epub": "ca2a7481950c",
+  "pdf": "ca2a7481950c"
+ },
+ "plautus-amphitruo": {
+  "epub": "e5828e6baebd",
+  "pdf": "e5828e6baebd"
+ },
+ "plautus-aulularia": {
+  "epub": "a25115d9f39a",
+  "pdf": "a25115d9f39a"
+ },
+ "plautus-captivi": {
+  "epub": "7498808674ed",
+  "pdf": "7498808674ed"
+ },
+ "plautus-menaechmi": {
+  "epub": "f591b21e691f",
+  "pdf": "f591b21e691f"
+ },
+ "plautus-miles-gloriosus": {
+  "epub": "af3343bd3d59",
+  "pdf": "af3343bd3d59"
+ },
+ "plautus-mostellaria": {
+  "epub": "16b96571a490",
+  "pdf": "16b96571a490"
+ },
+ "seneca-apocolocyntosis": {
+  "epub": "83c9ef0f52c0",
+  "pdf": "83c9ef0f52c0"
+ },
+ "seneca-tragoediae": {
+  "epub": "d2588b46e3b5",
+  "pdf": "d2588b46e3b5"
+ },
+ "tacitus-agricola": {
+  "epub": "74b532c2dc96",
+  "pdf": "74b532c2dc96"
+ },
+ "tacitus-annales": {
+  "epub": "ddffaf8a84fa",
+  "pdf": "ddffaf8a84fa"
+ },
+ "tacitus-germania": {
+  "epub": "7a2b5efa9504",
+  "pdf": "7a2b5efa9504"
+ },
+ "terentius-comoediae": {
+  "epub": "5161a9b34ab9",
+  "pdf": "5161a9b34ab9"
+ },
+ "tibullus-elegiae": {
+  "epub": "a3271ac72bff",
+  "pdf": "a3271ac72bff"
+ },
+ "tranquillus-de-vita-caesarum": {
+  "epub": "2438f0fc4408",
+  "pdf": "2438f0fc4408"
+ },
+ "vitruvius-de-architectura": {
+  "epub": "398e3d04f0d1",
+  "pdf": "398e3d04f0d1"
  }
 }

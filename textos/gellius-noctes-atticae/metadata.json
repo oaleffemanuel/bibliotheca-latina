@@ -1,0 +1,55 @@
+{
+  "id": "gellius-noctes-atticae",
+  "titulo_latino": "Noctes Atticae",
+  "forma": "prosa",
+  "edicoes": [
+    {
+      "editor": "John C. Rolfe",
+      "edicao": "The Attic Nights of Aulus Gellius (Loeb Classical Library)",
+      "local": "Cambridge, Mass. / Londres",
+      "editora": "Harvard University Press / William Heinemann",
+      "ano": "1927"
+    }
+  ],
+  "transcricao": {
+    "nome": "Perseus Digital Library (Tufts University), repositório PerseusDL/canonical-latinLit",
+    "arquivos": [
+      "https://github.com/PerseusDL/canonical-latinLit/blob/128a05afa9cc7179ab18f8d05f78a9f1dd50e415/data/phi1254/phi001/phi1254.phi001.perseus-lat2.xml"
+    ],
+    "commit": "128a05afa9cc7179ab18f8d05f78a9f1dd50e415",
+    "acessado_em": "2026-10-18"
+  },
+  "licenca": {
+    "nome": "CC BY-SA 4.0",
+    "url": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br",
+    "declaracao": "Sem declaração no arquivo; vale a licença geral do repositório: “Unless otherwise indicated, all contents of this repository are licensed under a Creative Commons Attribution-ShareAlike 4.0 International License” (README e LICENSE do repositório)."
+  },
+  "atribuicao": "Texto latino: The Attic Nights of Aulus Gellius (Loeb Classical Library), ed. John C. Rolfe (Cambridge, Mass. / Londres: Harvard University Press / William Heinemann, 1927). Transcrição digital: Perseus Digital Library, Tufts University (PerseusDL/canonical-latinLit), CC BY-SA 4.0. Adaptação de formato (texto, PDF, EPUB) pela Bibliotheca Latina, distribuída sob a mesma licença CC BY-SA 4.0.",
+  "auditoria": {
+    "1_autor_e_obra": "Autor antigo; obra em domínio público.",
+    "2_edicao_fonte": "The Attic Nights of Aulus Gellius (Loeb Classical Library), ed. John C. Rolfe (Cambridge, Mass. / Londres: Harvard University Press / William Heinemann, 1927) (lida no <sourceDesc> do arquivo TEI).",
+    "3_data_e_editor": "1927; John C. Rolfe (†1943; fonte: https://www.wikidata.org/wiki/Q6225114).",
+    "4_direitos_da_edicao": "Domínio público no Brasil (editor falecido em 1943); Lei 9.610/98, art. 41. Nos EUA, domínio público (publicada antes de 1931).",
+    "5_licenca_da_transcricao": "CC BY-SA 4.0 (Perseus Digital Library).",
+    "6_permissao_de_reproduzir": "Sim: CC BY-SA 4.0 permite copiar e redistribuir.",
+    "7_permissao_de_derivados": "Sim: CC BY-SA 4.0 permite adaptar (PDF, EPUB), com atribuição e mesma licença.",
+    "8_atribuicao_exigida": "Créditos à Perseus Digital Library e à edição-fonte, link da licença, indicação das mudanças; derivados sob CC BY-SA 4.0."
+  },
+  "decisao": "hospedar",
+  "downloads": true,
+  "omitido": [
+    "notas e aparato crítico do editor",
+    "introduções, comentários e traduções da edição impressa",
+    "tradução inglesa da edição bilíngue"
+  ],
+  "normalizacao": [
+    "Notas do editor e variantes do aparato crítico omitidas (material editorial, não texto latino).",
+    "Acréscimos do editor entre ⟨ ⟩, supressões propostas pelo editor entre [ ], lacunas como * * *, como na edição impressa.",
+    "Correções de digitalização marcadas pela Perseus (<choice>/<corr>) aplicadas; abreviaturas mantidas como impressas.",
+    "Grafia, maiúsculas, u/v, pontuação e ordem do texto mantidas como na edição; nenhuma modernização.",
+    "Espaços e quebras de linha do arquivo XML normalizados; numeração de livros, capítulos, seções e versos preservada.",
+    "Versos citados dentro da prosa aparecem na mesma linha, separados por “ / ”.",
+    "Letra duplicada após maiúscula com acento de ictus corrigida (13 casos; a correção <corr> da Perseus repetia a inicial, ex.: “Íincerte” → “Íncerte”)."
+  ],
+  "verificado_em": "2026-10-18"
+}

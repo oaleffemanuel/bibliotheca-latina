@@ -411,3 +411,5 @@ h2 .rep-secao:hover, h2 .rep-secao:focus { opacity: 1; color: var(--rubric); }
   .progresso-txt { margin-left: 0; width: 100%; }
 }
 @media print { .controles, .retomar, .migalhas, .partes-nav, .sumario { display: none !important; } }
+.obra .meta.aqui { color: var(--s2); }
+.texto-latino .sem-ref { font-style: italic; color: var(--ink-2); }
