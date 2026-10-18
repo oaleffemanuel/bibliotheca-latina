@@ -44,7 +44,7 @@
   const $ = id => document.getElementById(id);
   const q = $('q'), periodo = $('periodo'), genero = $('genero'), dificuldade = $('dificuldade'), formato = $('formato'),
         fonte = $('fonte'), lista = $('lista'), ordem = $('ordem'), audio = $('f-audio'), gratis = $('f-gratis'),
-        count = $('count'), empty = $('empty');
+        count = $('count'), empty = $('empty'), interno = $('f-interno');
   const chipGroups = { etapa: new Set(), categoria: new Set(), tipo: new Set() };
   const norm = s => (s || '').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '');
 
@@ -54,7 +54,7 @@
     b.setAttribute('aria-pressed', g.has(v) ? 'true' : 'false');
     apply(true);
   }));
-  [q, periodo, genero, dificuldade, formato, fonte, lista, ordem, audio, gratis].forEach(el => el && el.addEventListener(el === q ? 'input' : 'change', () => apply(true)));
+  [q, periodo, genero, dificuldade, formato, fonte, lista, ordem, audio, gratis, interno].forEach(el => el && el.addEventListener(el === q ? 'input' : 'change', () => apply(true)));
 
   function visible(c) {
     const d = c.dataset;
@@ -68,6 +68,7 @@
     if (fonte.value && d.fonte !== fonte.value) return false;
     if (audio.checked && d.audio !== '1') return false;
     if (gratis.checked && d.gratis !== '1') return false;
+    if (interno && interno.checked && d.interno !== '1') return false;
     const st = stateOf(c.id);
     if (lista.value === 'nao-lido' ? st === 'lido' : (lista.value && st !== lista.value)) return false;
     const t = norm(q.value.trim());
@@ -100,6 +101,7 @@
       [['periodo', periodo], ['genero', genero], ['dificuldade', dificuldade], ['formato', formato], ['fonte', fonte], ['lista', lista]].forEach(([k, el]) => { if (el.value) p.set(k, el.value); });
       if (audio.checked) p.set('audio', '1');
       if (gratis.checked) p.set('gratis', '1');
+      if (interno && interno.checked) p.set('aqui', '1');
       if (ordem.value !== 'sugerida') p.set('ordem', ordem.value);
       if (q.value.trim()) p.set('q', q.value.trim());
       history.replaceState(null, '', (p.toString() ? '?' + p : location.pathname));
@@ -111,7 +113,7 @@
 
   // "Filtros": a busca fica sempre visível; etapas, tipos e menus podem ser recolhidos (recolhidos de início em telas estreitas)
   const fBtn = $('filtros-botao'), more = $('filtros-mais');
-  const extras = () => Object.values(chipGroups).reduce((n, s) => n + s.size, 0) + [periodo, genero, dificuldade, formato, fonte, lista].filter(el => el.value).length + (audio.checked ? 1 : 0) + (gratis.checked ? 1 : 0);
+  const extras = () => Object.values(chipGroups).reduce((n, s) => n + s.size, 0) + [periodo, genero, dificuldade, formato, fonte, lista].filter(el => el.value).length + (audio.checked ? 1 : 0) + (gratis.checked ? 1 : 0) + (interno && interno.checked ? 1 : 0);
   function setMore(open) {
     more.classList.toggle('closed', !open); fBtn.setAttribute('aria-expanded', String(open));
     const n = extras(); fBtn.textContent = (open ? 'Ocultar filtros' : 'Filtros') + (n ? ' (' + n + ')' : '');
@@ -136,6 +138,7 @@
   [['periodo', periodo], ['genero', genero], ['dificuldade', dificuldade], ['formato', formato], ['fonte', fonte], ['lista', lista], ['ordem', ordem]].forEach(([k, el]) => { if (p.get(k)) el.value = p.get(k); });
   if (p.get('audio')) audio.checked = true;
   if (p.get('gratis')) gratis.checked = true;
+  if (p.get('aqui') && interno) interno.checked = true;
   if (p.get('q')) q.value = p.get('q');
   more.classList.toggle('closed', window.matchMedia('(max-width: 700px)').matches && extras() === 0);
   apply(false);
@@ -144,7 +147,7 @@
     Object.values(chipGroups).forEach(s => s.clear());
     document.querySelectorAll('.chip-btn').forEach(b => b.setAttribute('aria-pressed', 'false'));
     q.value = ''; [periodo, genero, dificuldade, formato, fonte, lista].forEach(el => { el.value = ''; }); ordem.value = 'sugerida';
-    audio.checked = false; gratis.checked = false;
+    audio.checked = false; gratis.checked = false; if (interno) interno.checked = false;
     apply(true);
   });
   $('sorteio').addEventListener('click', () => {
@@ -226,3 +229,105 @@ document.querySelectorAll('.copiar-pix').forEach(b => b.addEventListener('click'
   const v = b.dataset.copiar, ok = () => { b.textContent = '✓ Chave copiada'; setTimeout(() => { b.textContent = 'Copiar chave PIX'; }, 2000); };
   if (navigator.clipboard) navigator.clipboard.writeText(v).then(ok, () => prompt('Chave PIX:', v)); else prompt('Chave PIX:', v);
 }));
+
+// Leitor interno: letra, largura e aparência, e o ponto de leitura de cada obra (salvos só neste navegador).
+(function () {
+  const d = document.documentElement, KP = 'bibliotheca-latina:leitor', KT = 'bibliotheca-latina:tema', KL = 'bibliotheca-latina:leituras';
+  const get = (k, def) => { try { return JSON.parse(localStorage.getItem(k)) || def; } catch (e) { return def; } };
+  const put = (k, v) => { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
+  const FS = [0.85, 0.93, 1, 1.1, 1.22, 1.36, 1.5];
+
+  document.querySelectorAll('.controles').forEach(ctr => {
+    const prefs = get(KP, {});
+    let tema = ''; try { tema = localStorage.getItem(KT) || ''; } catch (e) {}
+    const idx = () => { const i = FS.indexOf(Number(prefs.fs || 1)); return i < 0 ? 2 : i; };
+    const refresh = () => {
+      ctr.querySelectorAll('[data-leitor="larg"]').forEach(b => b.setAttribute('aria-pressed', String((prefs.larg || '') === b.dataset.v)));
+      ctr.querySelectorAll('[data-leitor="tema"]').forEach(b => b.setAttribute('aria-pressed', String(tema === b.dataset.v)));
+      ctr.querySelector('[data-leitor="fs-"]').disabled = idx() === 0;
+      ctr.querySelector('[data-leitor="fs+"]').disabled = idx() === FS.length - 1;
+    };
+    ctr.addEventListener('click', ev => {
+      const b = ev.target.closest('button'); if (!b) return;
+      const a = b.dataset.leitor;
+      if (a === 'fs+' || a === 'fs-') {
+        // mantém na tela o trecho que estava sendo lido
+        const alvo = atual(); const y0 = alvo ? alvo.getBoundingClientRect().top : 0;
+        prefs.fs = FS[Math.max(0, Math.min(FS.length - 1, idx() + (a === 'fs+' ? 1 : -1)))];
+        d.style.setProperty('--leitor-fs', prefs.fs); put(KP, prefs);
+        if (alvo) window.scrollBy({ top: alvo.getBoundingClientRect().top - y0, behavior: 'instant' });
+      } else if (a === 'larg') {
+        prefs.larg = prefs.larg === b.dataset.v ? '' : b.dataset.v;
+        if (prefs.larg) d.dataset.largura = prefs.larg; else delete d.dataset.largura;
+        put(KP, prefs);
+      } else if (a === 'tema') {
+        tema = b.dataset.v;
+        if (tema) d.dataset.tema = tema; else delete d.dataset.tema;
+        try { if (tema) localStorage.setItem(KT, tema); else localStorage.removeItem(KT); } catch (e) {}
+      }
+      refresh();
+    });
+    refresh();
+  });
+
+  const art = document.querySelector('.texto-latino');
+  const marks = art ? Array.from(art.querySelectorAll('.par, .l, h2, h3')) : [];
+  function atual() {   // primeiro trecho cujo fim ainda está abaixo do cabeçalho fixo
+    if (!marks.length) return null;
+    const topo = (document.querySelector('.site-header') || {}).offsetHeight || 0;
+    let lo = 0, hi = marks.length - 1;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (marks[m].getBoundingClientRect().bottom > topo + 4) hi = m; else lo = m + 1; }
+    return marks[lo];
+  }
+  const rotulo = el => {
+    if (/^H[23]$/.test(el.tagName)) return el.textContent;
+    const ref = el.id.replace(/^p-/, '§ ').replace(/^v-\d+-/, 'verso ');
+    let h = el; while (h && !/^H[23]$/.test(h.tagName)) h = h.previousElementSibling || (h.parentElement !== art ? h.parentElement : null);
+    const sec = h ? h.textContent : (art.dataset.tituloParte || '');
+    return (sec ? sec + ', ' : '') + ref;
+  };
+  const todos = get(KL, {});
+
+  if (art) {
+    const obra = art.dataset.obra, parte = Number(art.dataset.parte || 1), partes = Number(art.dataset.partes || 1);
+    const pt = document.querySelector('.progresso-txt');
+    const pct = el => Math.round(100 * ((parte - 1) + marks.indexOf(el) / Math.max(1, marks.length - 1)) / partes);
+    let timer = 0, mexeu = false;
+    function salvar() {
+      const el = atual(); if (!el) return;
+      const p = pct(el); if (pt) pt.textContent = p + '% lido';
+      if (!mexeu) return;
+      todos[obra] = { url: location.pathname, ancora: el.id, pct: p, rotulo: rotulo(el), t: Date.now() };
+      put(KL, todos);
+    }
+    window.addEventListener('scroll', () => { mexeu = true; clearTimeout(timer); timer = setTimeout(salvar, 300); }, { passive: true });
+    salvar();
+    const sv = todos[obra], box = document.querySelector('.retomar');
+    if (sv && sv.ancora && box && !location.hash && !(sv.url === location.pathname && sv.pct === 0)) {
+      const href = (sv.url === location.pathname ? '' : sv.url) + '#' + sv.ancora;
+      box.innerHTML = 'Continuar de onde parou: <a></a>'; const a = box.querySelector('a');
+      a.href = href; a.textContent = sv.rotulo + ' (' + sv.pct + '%)';
+      box.hidden = false;
+    }
+  }
+  // página de apresentação de uma obra longa (sem texto): link para o ponto salvo
+  document.querySelectorAll('.retomar[data-obra]').forEach(box => {
+    const sv = todos[box.dataset.obra]; if (!sv || !sv.ancora) return;
+    box.innerHTML = 'Continuar de onde parou: <a></a>'; const a = box.querySelector('a');
+    a.href = sv.url + '#' + sv.ancora; a.textContent = sv.rotulo + ' (' + sv.pct + '%)'; box.hidden = false;
+  });
+  // "Ler aqui": obras começadas neste navegador, da mais recente para a mais antiga
+  const cont = document.querySelector('.continuar');
+  if (cont) {
+    const itens = Object.entries(todos).filter(([id]) => document.getElementById(id)).sort((a, b) => b[1].t - a[1].t);
+    if (itens.length) {
+      const ul = cont.querySelector('ul');
+      itens.forEach(([id, sv]) => {
+        const li = document.createElement('li'), a = document.createElement('a');
+        a.href = sv.url + '#' + sv.ancora; a.textContent = document.getElementById(id).querySelector('h3').textContent;
+        li.append(a, ' · ' + sv.rotulo + ' · ' + sv.pct + '%'); ul.append(li);
+      });
+      cont.hidden = false;
+    }
+  }
+})();

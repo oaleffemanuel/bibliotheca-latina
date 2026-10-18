@@ -11,7 +11,8 @@ Para quem só quer ler, basta o site. Não precisa de conta nem de saber usar o 
 | | |
 |---|---|
 | [Aprenda Latim](docs/aprenda/index.html) | *Elementa Linguae Latinae*: livro digital original em português, em quatro partes (Fundamenta, Grammatica, Lectio, Auctores). Lições com objetivos, exemplos em latim, tabelas, diagramas, exercícios com resposta e leituras do catálogo. 54 capítulos em três níveis (essencial, intermediário, avançado), todos disponíveis, com botão "Reportar problema" por e-mail em cada capítulo. A situação editorial interna e as pendências de revisão ficam em `conteudo/` (ver `FLUXO-EDITORIAL.md` §8 e `AUDITORIA-GERAL.md`); o site mostra uma nota editorial única na página Sobre; capítulo-modelo: 3, *Dē cāsibus*. |
-| [Catálogo](docs/catalogo.html) | 106 recursos com busca e filtros por etapa, período histórico, gênero, dificuldade, áudio, formato, fonte e gratuito/comercial. Marcação de "Quero ler", "Lendo" e "Lido" salva no navegador. |
+| [Catálogo](docs/catalogo.html) | 106 recursos com busca e filtros por etapa, período histórico, gênero, dificuldade, áudio, formato, fonte, gratuito/comercial e "Ler aqui". No celular, os filtros ficam recolhidos atrás do botão "Filtros"; a busca fica sempre visível. Marcação de "Quero ler", "Lendo" e "Lido" salva no navegador. |
+| [Ler aqui](docs/leituras/index.html) | Textos latinos integrais para ler no próprio site (primeiro lote: Fedro, César, Cícero, Salústio, Tito Lívio, Virgílio, Ovídio), com ajuste de letra, largura e aparência, ponto de leitura salvo no navegador, fonte e licença visíveis, e PDF e EPUB gerados. Obras longas têm uma página por livro. |
 | [Percurso de leitura](docs/percurso.html) | As sete etapas, o teste "onde começar", o método e dicas para quem fala português. |
 | [Recursos de estudo](docs/recursos.html) | Métodos, gramáticas, dicionários e ferramentas, com notas sobre pronúncia. |
 | [Guia de leitura (PDF)](docs/downloads/guia-de-leitura-bibliotheca-latina.pdf) | O percurso completo em PDF. |
@@ -36,7 +37,7 @@ As etapas são caminhos sugeridos, não uma escala universal de dificuldade: VI 
 
 Acesso gratuito não é permissão para redistribuir. Por isso:
 
-- **Nenhum texto ou áudio é hospedado aqui.** Todo recurso é um link para a página oficial da fonte (Perseus, Dickinson College Commentaries, Open Book Publishers, Project Gutenberg, Internet Archive, Latin Wikisource, Corpus Corporum, LibriVox e outras).
+- **Só textos auditados são hospedados.** A seção *Ler aqui* (`docs/leituras/`) traz o texto latino integral de obras cuja edição e transcrição permitem redistribuir e adaptar (primeiro lote: dez obras da Perseus Digital Library, CC BY-SA 4.0), com PDF e EPUB. Cada obra tem `textos/<id>/texto.txt` e `metadata.json` com a auditoria de direitos. Todos os demais recursos são links para a página oficial da fonte (Perseus, Dickinson College Commentaries, Open Book Publishers, Project Gutenberg, Internet Archive, Latin Wikisource, Corpus Corporum, LibriVox e outras). Nenhum áudio é hospedado.
 - Cada recurso registra licença, endereço da declaração de direitos, situação (domínio público, Creative Commons, acesso aberto limitado, comercial, não verificado) e data da última verificação.
 - Os livros do método *Lingua Latina per se Illustrata* aparecem como referência comercial, com link para a Hackett Publishing, sem reprodução de conteúdo.
 - A política completa está em [`LICENCAS.md`](LICENCAS.md); o registro recurso a recurso, em [`data/auditoria-direitos.csv`](data/auditoria-direitos.csv); os candidatos ainda não verificados, em [`data/candidatos.json`](data/candidatos.json).
@@ -57,7 +58,10 @@ O site é HTML, CSS e JavaScript puro, sem framework e sem build no servidor, pu
 data/catalogo.json            fonte única de verdade do catálogo
 data/candidatos.json          recursos conhecidos mas ainda não verificados (aparecem na página "Sobre")
 data/auditoria-direitos.csv   registro de direitos (gerado)
-ferramentas/construir.py      gera as páginas, o livro Aprenda Latim, o PDF, a planilha, o CSV/JSON, a auditoria e o sitemap
+ferramentas/construir.py      gera as páginas, o livro Aprenda Latim, o leitor, o PDF, a planilha, o CSV/JSON, a auditoria e o sitemap
+ferramentas/leituras.py       leitor interno: lê textos/, gera as páginas de leitura, os PDF e os EPUB
+ferramentas/importar_perseus.py importa textos da Perseus (TEI, commit fixo) para textos/<id>/ com metadata.json
+textos/<id>/                  texto.txt (só o texto latino) e metadata.json (edição, licença, auditoria, alterações)
 conteudo/livro.py             estrutura do livro Elementa Linguae Latinae (partes e lições planejadas)
 conteudo/licoes/lNN_*.py      uma lição por módulo (dicionário LICAO); conteudo/util.py tem os construtores de tabela, paradigma, exemplos, diagrama, observação e exercício
 conteudo/FLUXO-EDITORIAL.md   estados das lições, tipos de conteúdo, permissões, créditos e o padrão de capítulo
@@ -68,7 +72,8 @@ ferramentas/pesquisa/         pesquisa de fontes (JSON verificados por fonte), c
 docs/                         o site publicado
   assets/                     style.css, app.js, favicon.svg
   aprenda/                    índice do livro e uma página por lição
-  downloads/                  guia (PDF) e planilha (XLSX)
+  downloads/                  guia (PDF) e planilha (XLSX); textos/ tem os PDF e EPUB de Ler aqui e o manifesto
+  leituras/                   páginas de leitura (geradas por inteiro a cada build)
   dados/                      catálogo em CSV e JSON + auditoria
 LICENCAS.md                   política de direitos e histórico de decisões
 ```
@@ -101,9 +106,15 @@ O fluxo completo (estados `planejada` → `rascunho` → `revisada` → `publica
 1. Em `conteudo/livro.py`, localize a lição planejada e acrescente `modulo='lNN_slug'` ao seu dicionário.
 2. Crie `conteudo/licoes/lNN_slug.py` com um dicionário `LICAO` (use os capítulos 3, 5 e 9 como modelo): `slug`, `titulo`, `tempo`, `resumo`, `status`, `objetivos`, `topicos`, `prerequisitos`, `secoes` (lista de pares título/HTML, com os construtores de `conteudo/util.py`: `tabela`, `tabela_declinacao`, `tabela_conjugacao`, `comparacao`, `exemplos`, `observacao`, `dica`, `diagrama_frase`), `exercicios` (`util.exercicio`, sempre com resposta), `leituras` (ids do catálogo; o build falha se um id não existir), `leituras_nota`, `referencias` (`util.referencia`), `aulas_complementares` (opcional; `util.aula_complementar`, só com URL oficial verificada), `creditos` e `direitos`.
 3. Regras: conteúdo original em português, exemplos latinos corretos (com macrons), nada copiado de cursos de terceiros; citações antigas só de obras em domínio público, com a fonte.
-4. Rode o script de build. A lição ganha número, navegação anterior/próxima, bloco de créditos e entra no sitemap e no índice de tópicos automaticamente. Rascunhos aparecem com selo; `--so-publicadas` gera só as lições `publicada` (use para publicar).
+4. Rode o script de build. A lição ganha número, navegação anterior/próxima, bloco de créditos e entra no sitemap e no índice de tópicos automaticamente. A situação editorial interna (`rascunho`, `publicada` etc.) não aparece no site.
 
 Materiais privados de pesquisa (cursos de terceiros estudados para planejar o livro) ficam fora deste repositório, e nunca são publicados.
+
+### Acrescentar uma obra ao *Ler aqui*
+
+1. Faça a auditoria de oito pontos descrita em [`LICENCAS.md`](LICENCAS.md#textos-hospedados-ler-aqui): edição exata, editor e ano de morte (com fonte), licença da transcrição, permissão de redistribuir e de gerar PDF/EPUB, atribuição. Na dúvida, a obra fica só como link.
+2. Para a Perseus: acrescente a obra a `OBRAS` e `EDICOES` em `ferramentas/importar_perseus.py` (o `id` é o do catálogo) e rode `python3 ferramentas/importar_perseus.py <id>`. Para outra fonte, crie `textos/<id>/texto.txt` no mesmo formato (descrito no início do importador) e um `metadata.json` com os mesmos campos.
+3. Rode o build: a página de leitura, o EPUB, o PDF (sem `--sem-pdf`) e as ações "Ler aqui", "Baixar PDF" e "Baixar EPUB" do card aparecem sozinhos. O build recusa obra sem auditoria completa, e um botão de download só aparece se o arquivo existir e corresponder à versão atual do texto (`docs/downloads/textos/manifesto.json`).
 
 ### Regenerar o site, o PDF e a planilha
 

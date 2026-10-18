@@ -118,13 +118,14 @@ ICON_AUDIO = '<svg aria-hidden="true" width="13" height="13" viewBox="0 0 24 24"
 ICON_DL = '<svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v12m0 0-5-5m5 5 5-5M4 21h16"/></svg>'
 
 # ───────────────────────── layout ─────────────────────────
-NAV = [('./', 'Início'), ('aprenda/', 'Aprenda Latim'), ('catalogo.html', 'Catálogo'), ('percurso.html', 'Percurso'), ('recursos.html', 'Recursos de estudo'), ('guia.html', 'Como usar'), ('sobre.html', 'Sobre e direitos')]
+NAV = [('./', 'Início'), ('aprenda/', 'Aprenda Latim'), ('catalogo.html', 'Catálogo'), ('leituras/', 'Ler aqui'), ('percurso.html', 'Percurso'), ('recursos.html', 'Recursos de estudo'), ('guia.html', 'Como usar'), ('sobre.html', 'Sobre e direitos')]
 
 def page(fname, title, desc, body, extra_head=''):
-    base = '../' if '/' in fname else ''
+    base = '../' * fname.count('/')
     def cur(h):
         if h == './': return fname == 'index.html'
         if h == 'aprenda/': return fname.startswith('aprenda/')
+        if h == 'leituras/': return fname.startswith('leituras/')
         return h == fname
     nav = ''.join(f'<a href="{base}{h}"{" aria-current=\"page\"" if cur(h) else ""}>{t}</a>' for h, t in NAV)
     canon = SITE + ('' if fname == 'index.html' else fname.replace('index.html', ''))
@@ -149,6 +150,7 @@ def page(fname, title, desc, body, extra_head=''):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<script>try{{var d=document.documentElement,t=localStorage.getItem('bibliotheca-latina:tema'),l=JSON.parse(localStorage.getItem('bibliotheca-latina:leitor')||'{{}}');if(t)d.dataset.tema=t;if(l.fs)d.style.setProperty('--leitor-fs',l.fs);if(l.larg)d.dataset.largura=l.larg}}catch(e){{}}</script>
 <link rel="stylesheet" href="{base}assets/style.css?v={VER}">
 {extra_head}</head>
 <body>
@@ -175,23 +177,42 @@ def page(fname, title, desc, body, extra_head=''):
 </html>
 '''
 
-def card(w, compact=False):
+def acoes_externas(w):
+    acts = []
+    if w.get('online_reading_url'): acts.append(f'<a class="btn small" href="{e(w["online_reading_url"])}" target="_blank" rel="noopener">Ler na fonte ↗</a>')
+    if w.get('pdf_url'): acts.append(f'<a class="btn small ghost" href="{e(w["pdf_url"])}" target="_blank" rel="noopener">PDF na fonte ↗</a>')
+    if w.get('epub_url'): acts.append(f'<a class="btn small ghost" href="{e(w["epub_url"])}" target="_blank" rel="noopener">EPUB na fonte ↗</a>')
+    if not w.get('online_reading_url') and not w.get('pdf_url'):
+        acts.append(f'<a class="btn small" href="{e(w["source_url"])}" target="_blank" rel="noopener">{"Página oficial ↗" if not w.get("free", True) else "Abrir na fonte ↗"}</a>')
+    return acts
+
+def acoes_extras(w):
+    acts = []
+    if w.get('audio_url'): acts.append(f'<a class="btn small ghost" href="{e(w["audio_url"])}" target="_blank" rel="noopener">{ICON_AUDIO} Áudio ↗</a>')
+    if w.get('official_url') and w['official_url'] != w['source_url'] and w.get('free', True):
+        acts.append(f'<a class="btn small ghost" href="{e(w["official_url"])}" target="_blank" rel="noopener">Editora ↗</a>')
+    return acts
+
+def card(w, compact=False, base=''):
     g = w['reading_stage']; d = w.get('difficulty')
+    interno = w['id'] in TEXTOS
     tags = [f'<span class="tag stage">Etapa {ROMAN[g]} · {e(GRADUS[g]["nome"])}</span>']
     if d: tags.append(f'<span class="tag diff">Dificuldade {d} · {DIF[d]}</span>')
     if w.get('original_or_adapted'): tags.append(f'<span class="tag kind">{TIPO[w["original_or_adapted"]]}</span>')
     if w.get('audio_available'): tags.append(f'<span class="tag audio">{ICON_AUDIO} Áudio</span>')
     if w.get('notes_available'): tags.append('<span class="tag">Com notas</span>')
     if not w.get('free', True): tags.append('<span class="tag paid">Comercial</span>')
+    if interno: tags.append('<span class="tag host">Texto na biblioteca</span>')
     acts = []
-    if w.get('online_reading_url'): acts.append(f'<a class="btn small" href="{e(w["online_reading_url"])}" target="_blank" rel="noopener">Ler na fonte ↗</a>')
-    if w.get('pdf_url'): acts.append(f'<a class="btn small ghost" href="{e(w["pdf_url"])}" target="_blank" rel="noopener">PDF ↗</a>')
-    if w.get('epub_url'): acts.append(f'<a class="btn small ghost" href="{e(w["epub_url"])}" target="_blank" rel="noopener">EPUB ↗</a>')
-    if not w.get('online_reading_url') and not w.get('pdf_url'):
-        acts.append(f'<a class="btn small" href="{e(w["source_url"])}" target="_blank" rel="noopener">{"Página oficial ↗" if not w.get("free", True) else "Abrir na fonte ↗"}</a>')
-    if w.get('audio_url'): acts.append(f'<a class="btn small ghost" href="{e(w["audio_url"])}" target="_blank" rel="noopener">{ICON_AUDIO} Áudio ↗</a>')
-    if w.get('official_url') and w['official_url'] != w['source_url'] and w.get('free', True):
-        acts.append(f'<a class="btn small ghost" href="{e(w["official_url"])}" target="_blank" rel="noopener">Editora ↗</a>')
+    if interno:
+        dl = dl_textos(w['id'])
+        acts.append(f'<a class="btn small accent" href="{base}leituras/{e(w["id"])}.html">Ler aqui</a>')
+        if 'pdf' in dl: acts.append(f'<a class="btn small ghost" href="{base}{dl["pdf"]}" download>{ICON_DL} Baixar PDF</a>')
+        if 'epub' in dl: acts.append(f'<a class="btn small ghost" href="{base}{dl["epub"]}" download>{ICON_DL} Baixar EPUB</a>')
+        acts.append(f'<a class="btn small ghost" href="{e(main_link(w))}" target="_blank" rel="noopener">Ler na fonte ↗</a>')
+    else:
+        acts += acoes_externas(w)
+    acts += acoes_extras(w)
     acts += ['<button type="button" class="mark quero" data-kind="quero" aria-pressed="false">Quero ler</button>',
              '<button type="button" class="mark lendo" data-kind="lendo" aria-pressed="false">Lendo</button>',
              '<button type="button" class="mark lido" data-kind="lido" aria-pressed="false">✓ Lido</button>']
@@ -208,7 +229,7 @@ def card(w, compact=False):
             f'</dl></details>')
     return (f'<article class="obra c{g}" id="{e(w["id"])}" data-i="{w["i"]}" data-etapa="{g}" data-categoria="{e(w["category"])}" data-tipo="{e(w.get("original_or_adapted") or "")}" '
             f'data-periodo="{e(w["historical_period"])}" data-genero="{e(w["genre"])}" data-dif="{d or ""}" data-formatos="{e(" ".join(w.get("formats_available", [])))}" '
-            f'data-fonte="{e(w["source_name"])}" data-audio="{int(bool(w.get("audio_available")))}" data-gratis="{int(bool(w.get("free", True)))}" '
+            f'data-fonte="{e(w["source_name"])}" data-interno="{int(interno)}" data-audio="{int(bool(w.get("audio_available")))}" data-gratis="{int(bool(w.get("free", True)))}" '
             f'data-t="{e(w["title"])}" data-a="{e(w["author"] or "")}" data-q="{e(q)}">'
             f'<div class="top">{"".join(tags)}</div><h3>{e(w["title"])}</h3><p class="autor">{e(autor_line(w))}</p>'
             f'<p class="desc">{e(w["description_pt_br"])}</p><p class="meta">{e(meta)}</p>{more if not compact else ""}<div class="acts">{"".join(acts)}</div></article>')
@@ -225,6 +246,20 @@ def gradus_cards(link=True):
 # ───────────────────────── páginas ─────────────────────────
 N = len(W); NA = sum(bool(w.get('audio_available')) for w in W); NF = sum(bool(w.get('free', True)) for w in W)
 NL = sum(w['category'] == 'Leitura' for w in W); NSRC = len({w['source_name'] for w in W})
+
+# ───────────────────────── leitor interno (textos/ → docs/leituras/) ─────────────────────────
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import leituras as LT
+TEXTOS = LT.carregar(ROOT, {w['id']: w for w in W})
+NT = len(TEXTOS)
+DL_TEXTOS = os.path.join(DOCS, 'downloads', 'textos')
+MANIFESTO_PATH = os.path.join(DL_TEXTOS, 'manifesto.json')
+MANIFESTO = json.load(open(MANIFESTO_PATH, encoding='utf-8')) if os.path.exists(MANIFESTO_PATH) else {}
+
+def dl_textos(id_):
+    """Downloads gerados a partir da versão atual do texto (o manifesto guarda o hash usado em cada arquivo)."""
+    m = MANIFESTO.get(id_, {}); h = TEXTOS[id_]['hash']
+    return {k: f'downloads/textos/{id_}.{k}' for k in ('pdf', 'epub') if m.get(k) == h and os.path.exists(os.path.join(DL_TEXTOS, f'{id_}.{k}'))}
 
 def first_reading(stage, maxdif=None):
     for w in GRADUS[stage]['obras']:
@@ -244,7 +279,7 @@ def p_index():
 <h1>Bibliotheca <i>Latina</i></h1>
 <p class="motto">Ab initiis ad fontes — das primeiras palavras às fontes.</p>
 <p class="lead">{N} recursos gratuitos ou de referência, verificados um a um e organizados em sete etapas de leitura: do latim elementar aos autores romanos, aos Padres da Igreja e à escolástica medieval. Sem cadastro, sem anúncios.</p>
-<ul class="stats"><li><b>{N}</b>recursos</li><li><b>{NL}</b>leituras</li><li><b>{NA}</b>com áudio</li><li><b>{NSRC}</b>acervos de origem</li></ul>
+<ul class="stats"><li><b>{N}</b>recursos</li><li><b>{NL}</b>leituras</li><li><b>{NT}</b>para ler aqui</li><li><b>{NA}</b>com áudio</li><li><b>{NSRC}</b>acervos de origem</li></ul>
 <div class="cta"><a class="btn accent" href="catalogo.html">Explorar o catálogo</a><a class="btn ghost" href="percurso.html#onde-comecar">Não sei por onde começar</a></div>
 </div></section>
 <section class="wrap"><div class="callout"><div><p class="kicker">Nunca estudou latim?</p><h2>Aprenda Latim: <i>Elementa Linguae Latinae</i></h2><p>Um livro digital gratuito, em português, que ensina a gramática na ordem em que ela aparece nos textos: lições curtas, exemplos em latim, tabelas, exercícios com resposta e leituras do catálogo ao fim de cada capítulo.</p></div><div><a class="btn accent" href="aprenda/">Começar pelo capítulo 1</a></div></div></section>
@@ -256,7 +291,7 @@ def p_index():
 <ol class="steps">
 <li><b>Descubra seu ponto de partida.</b><br>Se nunca estudou latim, comece pelo <a href="aprenda/">curso Aprenda Latim</a>. Se já estudou, o <a href="percurso.html#onde-comecar">teste de cinco minutos</a> indica em qual etapa começar.{f' Se está começando do zero, a primeira leitura é {wlink(first)}.' if first else ''}</li>
 <li><b>Escolha uma leitura.</b><br>Filtre o catálogo por etapa, período, gênero, dificuldade, áudio ou formato.</li>
-<li><b>Leia na fonte original.</b><br>Cada recurso leva à página oficial do acervo que o publica. Não guardamos cópias; explicamos <a href="sobre.html#direitos">por quê</a>.</li>
+<li><b>Leia aqui ou na fonte.</b><br>{NT} obras completas podem ser lidas <a href="leituras/">aqui mesmo</a>, com PDF e EPUB, em edições identificadas e com licença que permite redistribuir. Os demais recursos levam à página oficial do acervo que os publica; explicamos <a href="sobre.html#direitos">por quê</a>.</li>
 <li><b>Marque seu progresso.</b><br>"Quero ler", "Lendo" e "Lido" ficam salvos no seu navegador. Para um registro permanente, use a planilha.</li>
 </ol></section>
 <section class="wrap"><h2>Para baixar</h2>
@@ -264,7 +299,7 @@ def p_index():
 <div class="dl"><h3>Guia de leitura (PDF)</h3><p>As sete etapas explicadas, uma metodologia prática de leitura, as leituras recomendadas de cada etapa e dicas para quem fala português.</p><a class="btn accent" href="downloads/{PDF_NAME}" download>{ICON_DL} Baixar o guia</a> <a class="btn ghost" href="percurso.html">Ler online</a></div>
 <div class="dl"><h3>Diário de leitura (planilha)</h3><p>Todo o catálogo com links, status de leitura, datas, painel de progresso e caderno de vocabulário. Funciona no Excel, no LibreOffice e no Google Planilhas.</p><a class="btn accent" href="downloads/{XLSX_NAME}" download>{ICON_DL} Baixar a planilha</a> <a class="btn ghost" href="guia.html#planilha">Como usar</a></div>
 </div>
-<p class="note">Os textos não ficam guardados aqui: os links levam aos acervos que os publicam (Perseus, Dickinson College Commentaries, Project Gutenberg, Wikisource, Internet Archive, Open Book Publishers e outros). Só indicamos materiais comerciais como referência, com link para a editora. <a href="sobre.html#direitos">Política de direitos.</a></p>
+<p class="note">Só guardamos aqui textos cuja edição e transcrição foram verificadas como livres para redistribuir ({NT} obras, em <a href="leituras/">Ler aqui</a>). Os demais links levam aos acervos que os publicam (Perseus, Dickinson College Commentaries, Project Gutenberg, Wikisource, Internet Archive, Open Book Publishers e outros). Só indicamos materiais comerciais como referência, com link para a editora. <a href="sobre.html#direitos">Política de direitos.</a></p>
 </section>'''
     return page('index.html', 'Bibliotheca Latina — leituras em latim, das primeiras palavras às fontes',
                 f'Biblioteca digital gratuita para estudantes de latim: {N} recursos verificados, organizados em sete etapas, do latim elementar a Cícero, Virgílio, Agostinho, Jerônimo e Tomás de Aquino. Com guia de leitura em PDF e planilha.',
@@ -299,6 +334,7 @@ def p_catalogo():
 <select id="lista" aria-label="Minha lista"><option value="">Minha lista: tudo</option><option value="quero">Quero ler</option><option value="lendo">Lendo</option><option value="lido">Lidos</option><option value="nao-lido">Ainda não lidos</option></select>
 <label class="inline"><input id="f-audio" type="checkbox"> Com áudio</label>
 <label class="inline"><input id="f-gratis" type="checkbox"> Só gratuitos</label>
+<label class="inline"><input id="f-interno" type="checkbox"> Ler aqui ({NT})</label>
 </div>
 </div>
 </div></div>
@@ -497,7 +533,7 @@ SRC_INFO = {
  'Project Gutenberg': ('https://www.gutenberg.org/', 'Domínio público nos EUA + Project Gutenberg License. Para o Brasil, conferimos o ano de morte de autor e editor de cada obra.'),
  'Dickinson College Commentaries': ('https://dcc.dickinson.edu/', 'CC BY-SA (3.0 ou 4.0, conforme a página); comentários, vocabulários e áudios incluídos.'),
  'Vicifons (Latin Wikisource)': ('https://la.wikisource.org/', 'Textos antigos em domínio público; transcrições sob CC BY-SA 4.0.'),
- 'Perseus Digital Library': ('https://www.perseus.tufts.edu/', 'CC BY-SA 3.0 US no rodapé de cada texto; Vulgata e Lewis & Short sem declaração (não verificado).'),
+ 'Perseus Digital Library': ('https://www.perseus.tufts.edu/', 'CC BY-SA 3.0 US no rodapé de cada texto do site; CC BY-SA 4.0 nos arquivos TEI do repositório PerseusDL/canonical-latinLit (GitHub); Vulgata e Lewis & Short sem declaração (não verificado).'),
  'Internet Archive': ('https://archive.org/', 'Fac-símiles de livros antigos; direitos conferidos item a item pelo ano de publicação e de morte dos autores.'),
  'Corpus Corporum': ('https://mlat.uzh.ch/', 'Textos da Patrologia Latina (domínio público); o site pede uso não comercial para as suas transcrições.'),
  'Hackett Publishing': ('https://hackettpublishing.com/', 'Obras comerciais (método Ørberg).'),
@@ -511,13 +547,18 @@ SRC_INFO = {
  'Vicipaedia': ('https://la.wikipedia.org/', 'CC BY-SA 4.0.'),
 }
 
+def como_aparece(fonte, s):
+    hosp = [k for k, m in TEXTOS.items() if fonte.split()[0] in m['transcricao']['nome']]
+    if hosp: return f'Link; {len(hosp)} obra{"s" if len(hosp) != 1 else ""} também em <a href="leituras/">Ler aqui</a>, com PDF e EPUB'
+    return 'Link para a página oficial' if not s['host'] else 'Link (cópia permitida pela licença, ainda não exercida)'
+
 def p_sobre():
     srcs = {}
     for w in W:
         s = srcs.setdefault(w['source_name'], dict(n=0, lic=set(), url=w.get('source_home') or w['source_url'], host=False))
         s['n'] += 1; s['lic'].add(w.get('license') or '—'); s['host'] = s['host'] or bool(w.get('hosting_allowed'))
     rows = ''.join(f'<tr><td><a href="{e(SRC_INFO.get(n, (s["url"],))[0])}" target="_blank" rel="noopener">{e(n)}</a><br><small>{s["n"]} recurso{"s" if s["n"] != 1 else ""}</small></td>'
-                   f'<td>{e(SRC_INFO.get(n, (None, "; ".join(sorted(s["lic"]))))[1])}</td><td>{"Link para a página oficial" if not s["host"] else "Link (cópia permitida pela licença, não exercida)"}</td></tr>'
+                   f'<td>{e(SRC_INFO.get(n, (None, "; ".join(sorted(s["lic"]))))[1])}</td><td>{como_aparece(n, s)}</td></tr>'
                    for n, s in sorted(srcs.items(), key=lambda x: -x[1]['n']))
     status = {}
     for w in W: status[w.get('rights_status', 'unverified')] = status.get(w.get('rights_status', 'unverified'), 0) + 1
@@ -542,7 +583,7 @@ def p_sobre():
 <li><b>Acesso gratuito não é permissão.</b> Um PDF que se baixa de graça continua protegido se a fonte não der uma licença explícita. Por isso o catálogo é formado por <b>links</b> para as páginas oficiais.</li>
 <li><b>Autor antigo em domínio público não cobre a edição moderna.</b> Cícero é de todos; a edição crítica, o comentário, o vocabulário, a tradução e a gravação têm direitos próprios. Avaliamos cada versão específica no endereço indicado.</li>
 <li><b>Dois regimes de prazo.</b> No Brasil, uma obra entra em domínio público 70 anos após a morte do autor (contados de 1º de janeiro do ano seguinte). Nos Estados Unidos, onde estão Project Gutenberg, Internet Archive e Perseus, valem regras próprias (em geral, publicação antes de 1931). Quando os dois regimes divergem, indicamos e preferimos o link.</li>
-<li><b>Nesta versão, não hospedamos nenhum texto.</b> Mesmo onde a licença permitiria (CC BY, CC BY-SA, domínio público), optamos por link: a fonte mantém o texto atualizado e corrigido. O campo <code>hosting_allowed</code> do catálogo registra, porém, a avaliação, para uso futuro.</li>
+<li id="ler-aqui"><b>Só hospedamos o que foi auditado.</b> As {NT} obras de <a href="leituras/">Ler aqui</a> trazem só o texto latino de edições do século XIX e do início do XX cujos editores morreram há mais de 70 anos, a partir de transcrições digitais publicadas sob CC BY-SA 4.0. Cada obra passa por uma auditoria de oito pontos (autor e obra, edição exata, editor e data, direitos da edição, licença da transcrição, permissão de reproduzir, permissão de gerar PDF e EPUB, atribuição exigida), visível na própria página de leitura e registrada em <code>textos/&lt;obra&gt;/metadata.json</code>. Notas, aparato crítico, introduções e traduções das edições não são reproduzidos; a página e os arquivos PDF e EPUB seguem a mesma licença CC BY-SA 4.0. Tudo o mais continua como link para a fonte.</li>
 <li><b>Materiais comerciais só como referência.</b> Os livros do método <i>Lingua Latina per se Illustrata</i> (Hackett Publishing) aparecem com link para a editora; não reproduzimos nada do seu conteúdo.</li>
 <li><b>Na dúvida, link.</b> Recursos sem declaração de direitos localizável ficam marcados como "não verificado", só com link, e nunca seriam copiados.</li>
 </ul>
@@ -755,7 +796,7 @@ def p_licao(l, k):
     erros = ''.join(f'<li><p class="errado"><b>Erro:</b> {a}</p><p class="certo"><b>Por quê, e como evitar:</b> {b}</p></li>' for a, b in l.get('erros_comuns', []))
     erros_html = f'<h2 id="erros">Erros comuns{flag("erros")}</h2><ul class="erros">{erros}</ul>' if erros else ''
     guiada_html = f'<h2 id="pratica">Prática guiada{flag("pratica")}</h2><p class="legend">Resolvida passo a passo: leia a pergunta, tente responder e só então abra cada passo.</p>{guiada}' if guiada else ''
-    leituras = ''.join(card(find(i), compact=True) for i in l['leituras'])
+    leituras = ''.join(card(find(i), compact=True, base='../') for i in l['leituras'])
     topicos = ''.join(f'<span class="tag">{e(t)}</span>' for t in l['topicos'])
     pr = l['prerequisitos']; pr_links = ''.join(f' · <a href="{SLUG2LICAO[s]["slug"]}.html">capítulo {SLUG2LICAO[s]["numero"]}</a>' if s in SLUG2LICAO else '' for s in pr.get('licoes', []))
     prereq = f'<p class="prereq"><b>Antes deste capítulo:</b> {pr.get("texto") or "nenhum pré-requisito."}{pr_links}</p>'
@@ -792,6 +833,100 @@ def p_licao(l, k):
 <nav class="licao-nav" aria-label="Capítulos">{nav}</nav>
 </div>"""
     return page(f'aprenda/{l["slug"]}.html', f'Capítulo {l["numero"]}: {l["titulo"]}', l['resumo'], body)
+
+# ───────────────────────── páginas do leitor ─────────────────────────
+def _cab_leitura(w, m, base, nivel_h='h1'):
+    dl = dl_textos(w['id']); g = w['reading_stage']
+    acoes = [f'<a class="btn small ghost" href="{base}{dl["pdf"]}" download>{ICON_DL} Baixar PDF</a>' if 'pdf' in dl else '',
+             f'<a class="btn small ghost" href="{base}{dl["epub"]}" download>{ICON_DL} Baixar EPUB</a>' if 'epub' in dl else '',
+             f'<a class="btn small ghost" href="{e(main_link(w))}" target="_blank" rel="noopener">Ler na fonte ↗</a>']
+    return (f'<nav class="migalhas" aria-label="Você está em"><a href="{base}catalogo.html#{e(w["id"])}">← Catálogo</a> · '
+            f'<a href="{base}percurso.html#etapa-{g}">Percurso: etapa {ROMAN[g]}</a> · <a href="{base}leituras/">Ler aqui</a></nav>'
+            f'<header class="leitura-cab c{g}"><p class="kicker">Ler aqui · Etapa {ROMAN[g]} · {e(GRADUS[g]["nome"])}</p>'
+            f'<{nivel_h} lang="la">{e(m["titulo_latino"])}</{nivel_h}><p class="autor">{e(w.get("author") or "")}</p>'
+            f'{LT.ficha(w, m, DIF, GRADUS, ROMAN)}<div class="acoes">{"".join(a for a in acoes if a)}</div></header>')
+
+def _sumario(toc, prefixo=''):
+    if len(toc) < 2: return ''
+    li = ''.join(f'<li class="n{lv}"><a href="{prefixo}#{a}">{e(t)}</a></li>' for lv, t, a in toc)
+    return f'<details class="sumario"><summary>Sumário ({len(toc)})</summary><ol>{li}</ol></details>'
+
+def p_leitura(id_):
+    w, m = find(id_), TEXTOS[id_]
+    base = '../'; ps = m['partes']
+    desc = f'{m["titulo_latino"]}, de {w.get("author") or "autor anônimo"}: texto latino integral para ler aqui, na edição de {m["edicao"]["editor"]} ({m["edicao"]["ano"]}), com fonte e licença.'
+    if len(ps) == 1:
+        corpo, toc = LT.corpo_html(ps[0]['blocos'], m['forma'])
+        body = f'''<div class="wrap leitor">{_cab_leitura(w, m, base)}
+{LT.CONTROLES}<p class="retomar" hidden></p>{_sumario(toc)}
+<article class="texto-latino {m["forma"]}" lang="la" data-obra="{e(id_)}" data-parte="1" data-partes="1">{corpo}</article>
+{LT.fonte_html(m, w)}</div>'''
+    else:
+        itens = ''.join(f'<li><a href="{e(id_)}/{p["n"]}.html">{e(p["titulo"])}</a> <span class="lvl">{sum(1 for b in p["blocos"] if b[0] in ("p", "v"))} {"versos" if m["forma"] == "verso" else "parágrafos"}</span></li>' for p in ps)
+        body = f'''<div class="wrap leitor">{_cab_leitura(w, m, base)}
+<p class="retomar" data-obra="{e(id_)}" hidden></p>
+<section class="partes"><h2>Livros</h2><p>O texto está dividido em {len(ps)} páginas, uma por livro, para carregar rápido no celular.</p>
+<ol class="lista-partes">{itens}</ol><p><a class="btn accent" href="{e(id_)}/1.html">Começar a ler: {e(ps[0]["titulo"])}</a></p></section>
+{LT.fonte_html(m, w)}</div>'''
+    return page(f'leituras/{id_}.html', f'{m["titulo_latino"]} ({w.get("author") or ""}): ler em latim', desc, body)
+
+def p_leitura_parte(id_, p):
+    w, m = find(id_), TEXTOS[id_]
+    base = '../../'; ps = m['partes']; n = p['n']
+    corpo, toc = LT.corpo_html(p['blocos'], m['forma'])
+    ant = f'<a class="ant" href="{n - 1}.html">← {e(ps[n - 2]["titulo"])}</a>' if n > 1 else '<span></span>'
+    prox = f'<a class="prox" href="{n + 1}.html">{e(ps[n]["titulo"])} →</a>' if n < len(ps) else '<span></span>'
+    dl = dl_textos(id_)
+    body = f'''<div class="wrap leitor">
+<nav class="migalhas" aria-label="Você está em"><a href="{base}catalogo.html#{e(id_)}">← Catálogo</a> · <a href="../{e(id_)}.html">{e(m["titulo_latino"])}</a> · <a href="{base}leituras/">Ler aqui</a></nav>
+<header class="leitura-cab parte c{w["reading_stage"]}"><p class="kicker" lang="la">{e(m["titulo_latino"])} · {e(w.get("author") or "")}</p><h1 lang="la">{e(p["titulo"])}</h1>
+<p class="lvl">Livro {n} de {len(ps)} · edição de {e(m["edicao"]["editor"])} ({e(m["edicao"]["ano"])}) · <a href="../{e(id_)}.html#fonte">fonte e licença</a>{f' · <a href="{base}{dl["epub"]}" download>EPUB</a>' if "epub" in dl else ""}{f' · <a href="{base}{dl["pdf"]}" download>PDF</a>' if "pdf" in dl else ""}</p></header>
+{LT.CONTROLES}<p class="retomar" hidden></p>{_sumario(toc)}
+<nav class="partes-nav" aria-label="Livros">{ant}{prox}</nav>
+<article class="texto-latino {m["forma"]}" lang="la" data-obra="{e(id_)}" data-parte="{n}" data-partes="{len(ps)}" data-titulo-parte="{e(p["titulo"])}">{corpo}</article>
+<nav class="partes-nav" aria-label="Livros">{ant}{prox}</nav>
+<p class="atribuicao">{e(m["atribuicao"])} <a href="{e(m["licenca"]["url"])}" rel="license" target="_blank">{e(m["licenca"]["nome"])}</a>.</p>
+</div>'''
+    return page(f'leituras/{id_}/{n}.html', f'{p["titulo"]} · {m["titulo_latino"]} ({w.get("author") or ""})',
+                f'{m["titulo_latino"]}, {p["titulo"]}: texto latino para ler aqui, edição de {m["edicao"]["editor"]} ({m["edicao"]["ano"]}).', body)
+
+def p_leituras_index():
+    ws = sorted((find(i) for i in TEXTOS), key=lambda w: w['i'])
+    body = f'''<div class="wrap"><h1>Ler aqui</h1>
+<p class="lead">{NT} obras latinas completas para ler direto na Bibliotheca Latina, com ajuste de letra, largura e aparência, e o ponto de leitura guardado no seu navegador.</p>
+<p>Cada texto vem de uma edição identificada (editor, ano, editora) e de uma transcrição com licença que permite redistribuir e gerar PDF e EPUB. Os critérios e a auditoria de cada obra estão na seção "Fonte, edição e direitos" de cada página e na <a href="../sobre.html#direitos">política de direitos</a>. As demais obras do catálogo continuam disponíveis na fonte original.</p>
+<div class="continuar" hidden><h2>Continuar lendo</h2><ul class="continuar-lista"></ul></div>
+<div class="grid">{"".join(card(w, base="../") for w in ws)}</div>
+<p class="legend" style="margin-top:1.5rem"><a href="../catalogo.html">Ver o catálogo completo ({N} recursos)</a></p></div>'''
+    return page('leituras/index.html', 'Ler aqui: textos latinos completos', f'{NT} obras latinas completas (César, Cícero, Salústio, Tito Lívio, Virgílio, Ovídio, Fedro) para ler online, com PDF e EPUB e fonte identificada.', body)
+
+def build_textos(com_pdf):
+    os.makedirs(DL_TEXTOS, exist_ok=True)
+    for id_, m in TEXTOS.items():
+        w = find(id_); ent = MANIFESTO.setdefault(id_, {})
+        if ent.get('epub') != m['hash'] or not os.path.exists(os.path.join(DL_TEXTOS, f'{id_}.epub')):
+            LT.build_epub(w, m, os.path.join(DL_TEXTOS, f'{id_}.epub'), SITE); ent['epub'] = m['hash']
+        if com_pdf and (ent.get('pdf') != m['hash'] or not os.path.exists(os.path.join(DL_TEXTOS, f'{id_}.pdf'))):
+            from weasyprint import HTML
+            HTML(string=LT.pdf_html(w, m, SITE, ROMAN), base_url=DOCS).write_pdf(os.path.join(DL_TEXTOS, f'{id_}.pdf')); ent['pdf'] = m['hash']
+            print(f'  PDF: {id_}')
+    for f in os.listdir(DL_TEXTOS):   # arquivos de obras que saíram de textos/
+        if f != 'manifesto.json' and f.rsplit('.', 1)[0] not in TEXTOS: os.remove(os.path.join(DL_TEXTOS, f))
+    for k in [k for k in MANIFESTO if k not in TEXTOS]: del MANIFESTO[k]
+    json.dump(MANIFESTO, open(MANIFESTO_PATH, 'w', encoding='utf-8'), ensure_ascii=False, indent=1, sort_keys=True)
+
+def build_leituras():
+    import shutil
+    d = os.path.join(DOCS, 'leituras')
+    if os.path.isdir(d): shutil.rmtree(d)   # gerado por inteiro a cada build
+    os.makedirs(d)
+    open(os.path.join(d, 'index.html'), 'w', encoding='utf-8').write(p_leituras_index())
+    for id_, m in TEXTOS.items():
+        open(os.path.join(d, f'{id_}.html'), 'w', encoding='utf-8').write(p_leitura(id_))
+        if len(m['partes']) > 1:
+            os.makedirs(os.path.join(d, id_))
+            for p in m['partes']:
+                open(os.path.join(d, id_, f'{p["n"]}.html'), 'w', encoding='utf-8').write(p_leitura_parte(id_, p))
 
 def p_404():
     return page('404.html', 'Página não encontrada', 'Página não encontrada.',
@@ -975,6 +1110,7 @@ def build_data():
             wr = csv.DictWriter(f, fieldnames=aud_fields); wr.writeheader()
             for w in W: wr.writerow({k: w.get(k) for k in aud_fields})
     pages = ['', 'catalogo.html', 'percurso.html', 'recursos.html', 'guia.html', 'sobre.html', 'aprenda/'] + [f'aprenda/{l["slug"]}.html' for l in LICOES]
+    pages += ['leituras/'] + [f'leituras/{k}.html' for k in TEXTOS] + [f'leituras/{k}/{p["n"]}.html' for k, m in TEXTOS.items() if len(m['partes']) > 1 for p in m['partes']]
     sm = ''.join(f'<url><loc>{SITE}{p}</loc><lastmod>{TODAY}</lastmod></url>' for p in pages)
     open(os.path.join(DOCS, 'sitemap.xml'), 'w').write(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{sm}</urlset>\n')
     open(os.path.join(DOCS, 'robots.txt'), 'w').write(f'User-agent: *\nAllow: /\nSitemap: {SITE}sitemap.xml\n')
@@ -1005,6 +1141,9 @@ def validate():
 
 def main():
     validate()
+    build_textos('--sem-pdf' not in sys.argv)
+    build_leituras()
+    print(f'Ler aqui: {NT} obras, ' + ', '.join(f'{k}: {len(v["partes"])} pág.' for k, v in TEXTOS.items()) + f'; downloads: {sum(len(dl_textos(k)) for k in TEXTOS)} arquivos.')
     for fname, fn in [('index.html', p_index), ('catalogo.html', p_catalogo), ('percurso.html', p_percurso), ('recursos.html', p_recursos),
                       ('guia.html', p_guia), ('sobre.html', p_sobre), ('404.html', p_404)]:
         open(os.path.join(DOCS, fname), 'w', encoding='utf-8').write(fn())
