@@ -53,6 +53,23 @@ pre { background: var(--paper-2); padding: .9rem 1rem; overflow: auto; border-ra
 .nav a { color: var(--ink-2); text-decoration: none; padding: .45rem .65rem; border-radius: var(--radius); }
 .nav a:hover { background: var(--paper-2); color: var(--ink); }
 .nav a[aria-current="page"] { color: var(--rubric); box-shadow: inset 0 -2px 0 var(--rubric); }
+.nav-toggle { display: none; }
+@media (max-width: 700px) {
+  .site-header .wrap { gap: .6rem; }
+  .brand { flex: 1; min-width: 0; }
+  .nav-toggle { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 1rem; border: 1px solid var(--line-2); border-radius: var(--radius); background: var(--card); color: var(--ink); font: 600 .95rem var(--ui); cursor: pointer; }
+  .nav-toggle[aria-expanded="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+  .nav { width: 100%; flex-direction: column; gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); overflow: hidden; font-size: 1rem; }
+  .nav.closed { display: none; }
+  .nav a { display: block; padding: .8rem 1rem; min-height: 48px; border-radius: 0; border-top: 1px solid var(--line); }
+  .nav a:first-child { border-top: 0; }
+  .nav a[aria-current="page"] { background: var(--paper-2); color: var(--rubric); font-weight: 600; box-shadow: inset 4px 0 var(--rubric); }
+  .eco a { padding: .45rem 0 .1rem; }
+}
+/* ligação com o portal das bibliotecas */
+.eco { max-width: var(--wrap); margin: 0 auto; padding: .35rem 16px 0; font-family: var(--ui); font-size: .78rem; line-height: 1.4; }
+.eco a { display: inline-block; padding: .2rem 0; color: var(--ink-3); text-decoration: none; letter-spacing: .02em; }
+.eco a:hover { color: var(--rubric); text-decoration: underline; }
 
 /* rodapé */
 .site-footer { margin-top: 4rem; border-top: 1px solid var(--line); background: var(--paper-2); font-family: var(--ui); font-size: .88rem; color: var(--ink-2); }

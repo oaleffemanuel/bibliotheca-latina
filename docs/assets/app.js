@@ -1,3 +1,13 @@
+// Menu em telas estreitas: o botão só aparece com JS; sem JS a lista de links fica visível.
+(function () {
+  const btn = document.getElementById('nav-toggle'), nav = document.getElementById('menu');
+  if (!btn || !nav) return;
+  btn.hidden = false; nav.classList.add('closed');
+  const set = open => { nav.classList.toggle('closed', !open); btn.setAttribute('aria-expanded', String(open)); };
+  btn.addEventListener('click', () => set(nav.classList.contains('closed')));
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape' && !nav.classList.contains('closed')) { set(false); btn.focus(); } });
+})();
+
 // Bibliotheca Latina — filtros do catálogo e progresso de leitura (salvo só no navegador do leitor).
 (function () {
   const KEY = 'bibliotheca-latina:v1';
